@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="HeroStats" format=3 uid="uid://dqfjqnr2nvl7u"]
+
+[ext_resource type="Script" uid="uid://i5vabtdd5y6k" path="res://resources/hero_stats.gd" id="1"]
+[ext_resource type="PackedScene" path="res://heroes/seer/seer_visual.tscn" id="2"]
+[ext_resource type="Resource" path="res://weapons/smg.tres" id="3"]
+[ext_resource type="Script" uid="uid://bej18w4f7pn4j" path="res://abilities/reveal_ability.gd" id="4"]
+[ext_resource type="PackedScene" path="res://abilities/ultimate_reveal_effect.tscn" id="6"]
+
+[sub_resource type="Resource" id="Resource_ultimate"]
+script = ExtResource("4")
+duration = 8.0
+team_wall_sight = true
+effect_scene = ExtResource("6")
+
+[resource]
+script = ExtResource("1")
+display_name = "Seer"
+max_health = 110
+move_speed = 220.0
+weapon = ExtResource("3")
+ultimate = SubResource("Resource_ultimate")
+vision_range = 170.0
+vision_angle = 360.0
+sees_through_walls = true
+visual_scene = ExtResource("2")

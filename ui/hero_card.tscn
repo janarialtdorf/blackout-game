@@ -1,0 +1,88 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://ui/hero_card.gd" id="1"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_normal"]
+content_margin_left = 8.0
+content_margin_top = 6.0
+content_margin_right = 8.0
+content_margin_bottom = 6.0
+bg_color = Color(0.08, 0.08, 0.1, 0.85)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.25, 0.25, 0.3, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_active"]
+content_margin_left = 8.0
+content_margin_top = 6.0
+content_margin_right = 8.0
+content_margin_bottom = 6.0
+bg_color = Color(0.14, 0.13, 0.1, 0.92)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 0.85, 0.4, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_bar_background"]
+bg_color = Color(0.2, 0.2, 0.24, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_health_fill"]
+bg_color = Color(0.85, 0.27, 0.27, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_ultimate_fill"]
+bg_color = Color(0.3, 0.6, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_ultimate_full"]
+bg_color = Color(1, 0.82, 0.25, 1)
+
+[node name="HeroCard" type="PanelContainer"]
+custom_minimum_size = Vector2(190, 0)
+theme_override_styles/panel = SubResource("StyleBox_normal")
+script = ExtResource("1")
+normal_style = SubResource("StyleBox_normal")
+active_style = SubResource("StyleBox_active")
+ultimate_full_style = SubResource("StyleBox_ultimate_full")
+
+[node name="Row" type="HBoxContainer" parent="."]
+theme_override_constants/separation = 8
+
+[node name="Portrait" type="TextureRect" parent="Row"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(40, 40)
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Column" type="VBoxContainer" parent="Row"]
+size_flags_horizontal = 3
+theme_override_constants/separation = 4
+
+[node name="Title" type="Label" parent="Row/Column"]
+unique_name_in_owner = true
+text = "1   Hero"
+
+[node name="HealthBar" type="ProgressBar" parent="Row/Column"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 10)
+theme_override_styles/background = SubResource("StyleBox_bar_background")
+theme_override_styles/fill = SubResource("StyleBox_health_fill")
+value = 100.0
+show_percentage = false
+
+[node name="UltimateBar" type="ProgressBar" parent="Row/Column"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 6)
+theme_override_styles/background = SubResource("StyleBox_bar_background")
+theme_override_styles/fill = SubResource("StyleBox_ultimate_fill")
+show_percentage = false

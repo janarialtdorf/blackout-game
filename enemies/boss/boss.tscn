@@ -1,0 +1,24 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://enemies/enemy.tscn" id="1"]
+[ext_resource type="Script" path="res://enemies/boss/boss.gd" id="2"]
+[ext_resource type="Resource" path="res://enemies/boss/boss_stats.tres" id="3"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_body"]
+radius = 28.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hurt"]
+radius = 30.0
+
+[node name="Boss" instance=ExtResource("1")]
+script = ExtResource("2")
+stats = ExtResource("3")
+
+[node name="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_body")
+
+[node name="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("CircleShape2D_hurt")
+
+[node name="WeaponComponent" parent="."]
+position = Vector2(36, 0)

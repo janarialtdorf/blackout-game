@@ -1,0 +1,6 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://abilities/ring_effect.tscn" id="1"]
+
+[node name="UltimateRingEffect" instance=ExtResource("1")]
+color = Color(1, 0.75, 0.15, 1)

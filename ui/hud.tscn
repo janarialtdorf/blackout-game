@@ -1,0 +1,34 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://ui/hud.gd" id="1"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_bar_background"]
+bg_color = Color(0.2, 0.2, 0.24, 0.85)
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_cooldown_fill"]
+bg_color = Color(0.75, 0.75, 0.8, 1)
+
+[node name="HUD" type="CanvasLayer"]
+script = ExtResource("1")
+
+[node name="Margin" type="MarginContainer" parent="."]
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+
+[node name="Panel" type="VBoxContainer" parent="Margin"]
+theme_override_constants/separation = 6
+
+[node name="Cards" type="VBoxContainer" parent="Margin/Panel"]
+unique_name_in_owner = true
+theme_override_constants/separation = 6
+
+[node name="SwitchLabel" type="Label" parent="Margin/Panel"]
+theme_override_font_sizes/font_size = 12
+text = "Switch cooldown"
+
+[node name="SwitchCooldownBar" type="ProgressBar" parent="Margin/Panel"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(190, 6)
+theme_override_styles/background = SubResource("StyleBox_bar_background")
+theme_override_styles/fill = SubResource("StyleBox_cooldown_fill")
+show_percentage = false

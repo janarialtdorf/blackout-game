@@ -1,0 +1,7 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://abilities/ring_effect.tscn" id="1"]
+
+[node name="UltimateRevealEffect" instance=ExtResource("1")]
+scale = Vector2(7, 7)
+color = Color(1, 0.75, 0.15, 1)

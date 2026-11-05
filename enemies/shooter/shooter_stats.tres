@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="EnemyStats" format=3 uid="uid://usrdk3yvtrej"]
+
+[ext_resource type="Script" uid="uid://7jqu8lso5rqx" path="res://resources/enemy_stats.gd" id="1"]
+[ext_resource type="Resource" uid="uid://f0jc8bryqr1n" path="res://weapons/enemy_pistol.tres" id="2"]
+[ext_resource type="PackedScene" path="res://enemies/shooter/shooter_visual.tscn" id="3"]
+
+[resource]
+script = ExtResource("1")
+max_health = 30
+move_speed = 90.0
+sight_range = 300.0
+preferred_distance = 180.0
+attack_range = 280.0
+weapon = ExtResource("2")
+visual_scene = ExtResource("3")

@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="EnemyStats" format=3]
+
+[ext_resource type="Script" path="res://resources/enemy_stats.gd" id="1"]
+[ext_resource type="Resource" path="res://weapons/boss_gun.tres" id="2"]
+[ext_resource type="PackedScene" path="res://enemies/boss/boss_visual.tscn" id="3"]
+
+[resource]
+script = ExtResource("1")
+display_name = "Boss"
+max_health = 2500
+move_speed = 60.0
+sight_range = 450.0
+preferred_distance = 220.0
+attack_range = 450.0
+weapon = ExtResource("2")
+knockback_scale = 0.1
+visual_scene = ExtResource("3")

@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="WeaponStats" format=3 uid="uid://8r4qemqfv3rd"]
+
+[ext_resource type="Script" uid="uid://d0ns4yeofxm4s" path="res://resources/weapon_stats.gd" id="1"]
+[ext_resource type="PackedScene" path="res://weapons/bullet_visual.tscn" id="2"]
+
+[resource]
+script = ExtResource("1")
+damage = 12
+fire_rate = 1.5
+max_range = 300.0
+pellet_count = 5
+spread_degrees = 30.0
+projectile_visual = ExtResource("2")

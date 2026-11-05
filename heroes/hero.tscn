@@ -1,0 +1,53 @@
+[gd_scene format=3 uid="uid://y06ggm1qae7o"]
+
+[ext_resource type="Script" uid="uid://cicjqaixbe7ay" path="res://heroes/hero.gd" id="1"]
+[ext_resource type="Resource" uid="uid://b6n2k5lkddep5" path="res://heroes/fighter/fighter_stats.tres" id="2"]
+[ext_resource type="PackedScene" path="res://components/weapon_component.tscn" id="3"]
+[ext_resource type="Script" uid="uid://7fpbn28ftjmm" path="res://components/health_component.gd" id="4"]
+[ext_resource type="Script" uid="uid://bi4y5nu3jvq6v" path="res://components/hurtbox.gd" id="5"]
+[ext_resource type="Script" uid="uid://dydui3cotj0gl" path="res://components/vision_component.gd" id="6"]
+[ext_resource type="Script" uid="uid://4pniyr6wmldh" path="res://components/ultimate_component.gd" id="7"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_body"]
+radius = 12.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hurt"]
+radius = 14.0
+
+[node name="Hero" type="CharacterBody2D" unique_id=1162712839 groups=["heroes"]]
+collision_layer = 2
+motion_mode = 1
+script = ExtResource("1")
+stats = ExtResource("2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=398986357]
+shape = SubResource("CircleShape2D_body")
+
+[node name="WeaponComponent" parent="." unique_id=172124888 instance=ExtResource("3")]
+position = Vector2(18, 0)
+hit_mask = 17
+
+[node name="HealthComponent" type="Node" parent="." unique_id=1140451047]
+script = ExtResource("4")
+
+[node name="Hurtbox" type="Area2D" parent="." unique_id=1799782624 node_paths=PackedStringArray("health")]
+collision_layer = 8
+collision_mask = 0
+monitoring = false
+script = ExtResource("5")
+health = NodePath("../HealthComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" unique_id=2079587557]
+shape = SubResource("CircleShape2D_hurt")
+
+[node name="UltimateComponent" type="Node" parent="." unique_id=732100019]
+script = ExtResource("7")
+passive_per_second = 20.0
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=944749187]
+path_desired_distance = 4.0
+
+[node name="VisionComponent" type="PointLight2D" parent="." unique_id=2023495632]
+shadow_filter = 1
+shadow_filter_smooth = 2.0
+script = ExtResource("6")

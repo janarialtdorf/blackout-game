@@ -1,0 +1,10 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://components/visual.gd" id="1"]
+
+[node name="Visual" type="Node2D"]
+script = ExtResource("1")
+
+[node name="PlaceholderBullet" type="Polygon2D" parent="."]
+color = Color(0.6, 0.9, 1, 1)
+polygon = PackedVector2Array(-12, -1.5, 6, -1.5, 6, 1.5, -12, 1.5)

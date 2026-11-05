@@ -1,0 +1,7 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://enemies/enemy.tscn" id="1"]
+[ext_resource type="Resource" path="res://enemies/chaser/chaser_stats.tres" id="2"]
+
+[node name="Chaser" instance=ExtResource("1")]
+stats = ExtResource("2")
