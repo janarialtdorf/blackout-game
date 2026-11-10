@@ -7,11 +7,10 @@ extends CharacterBody2D
 var visual: Visual
 var target: Node2D
 
-var _knockback := Vector2.ZERO
-
 @onready var health: HealthComponent = $HealthComponent
 @onready var weapon: WeaponComponent = $WeaponComponent
 @onready var nav: NavigationAgent2D = $NavigationAgent2D
+@onready var knockback: KnockbackComponent = $KnockbackComponent
 
 
 func _ready() -> void:
@@ -26,14 +25,13 @@ func _ready() -> void:
 
 ## Pushes the enemy; the push fades out over a fraction of a second.
 func knock_back(push: Vector2) -> void:
-	_knockback = push * stats.knockback_scale
+	knockback.push(push * stats.knockback_scale)
 
 
 func _physics_process(delta: float) -> void:
-	if _knockback != Vector2.ZERO:
-		velocity = _knockback
+	if knockback.is_active():
+		velocity = knockback.step(delta)
 		move_and_slide()
-		_knockback = _knockback.move_toward(Vector2.ZERO, 2000.0 * delta)
 		return
 	if not is_instance_valid(target) or not target.is_in_group(&"heroes"): # gone or dead
 		target = _find_visible_hero()

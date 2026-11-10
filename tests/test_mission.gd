@@ -11,6 +11,7 @@ func _run() -> void:
 	var chaser := spawn_enemy(Vector2(240, 280))
 	chaser.target = fighter
 	var meter_before := sniper.ultimate.charge
+	var death_spot := fighter.global_position
 	fighter.health.take_damage(fighter.health.max_health)
 	await wait(2)
 	check(team.active == sniper and sniper.controlled, "when the controlled hero dies, control moves to a living hero")
@@ -19,6 +20,7 @@ func _run() -> void:
 	check(chaser.target != fighter, "enemies drop a dead target")
 	check(not team.try_switch(0), "you can't switch to a dead hero")
 	check(is_instance_valid(fighter), "a dead hero stays on the floor")
+	check(fighter.global_position == death_spot, "a forced switch on death does not swap places")
 	check(result_title() == "", "no result screen while heroes are alive")
 
 	# --- Wipe and retry

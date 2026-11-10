@@ -1,13 +1,13 @@
-[gd_resource type="Resource" script_class="EnemyStats" format=3]
+[gd_resource type="Resource" script_class="EnemyStats" format=3 uid="uid://b68p4a8ld4pk0"]
 
-[ext_resource type="Script" path="res://resources/enemy_stats.gd" id="1"]
+[ext_resource type="Script" uid="uid://7jqu8lso5rqx" path="res://resources/enemy_stats.gd" id="1"]
 [ext_resource type="Resource" path="res://weapons/boss_gun.tres" id="2"]
 [ext_resource type="PackedScene" path="res://enemies/boss/boss_visual.tscn" id="3"]
 
 [resource]
 script = ExtResource("1")
 display_name = "Boss"
-max_health = 2500
+max_health = 1500
 move_speed = 60.0
 sight_range = 450.0
 preferred_distance = 220.0

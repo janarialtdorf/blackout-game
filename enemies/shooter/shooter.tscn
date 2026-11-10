@@ -1,7 +1,7 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://bxs6krlw7tiwh"]
 
 [ext_resource type="PackedScene" path="res://enemies/enemy.tscn" id="1"]
-[ext_resource type="Resource" path="res://enemies/shooter/shooter_stats.tres" id="2"]
+[ext_resource type="Resource" uid="uid://usrdk3yvtrej" path="res://enemies/shooter/shooter_stats.tres" id="2"]
 
-[node name="Shooter" instance=ExtResource("1")]
+[node name="Shooter" unique_id=1974613914 instance=ExtResource("1")]
 stats = ExtResource("2")

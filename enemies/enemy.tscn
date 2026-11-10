@@ -4,6 +4,7 @@
 [ext_resource type="Script" path="res://components/health_component.gd" id="2"]
 [ext_resource type="Script" path="res://components/hurtbox.gd" id="3"]
 [ext_resource type="PackedScene" path="res://components/weapon_component.tscn" id="4"]
+[ext_resource type="Script" path="res://components/knockback_component.gd" id="knockback"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_body"]
 radius = 12.0
@@ -39,3 +40,6 @@ hit_mask = 9
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 path_desired_distance = 4.0
+
+[node name="KnockbackComponent" type="Node" parent="."]
+script = ExtResource("knockback")

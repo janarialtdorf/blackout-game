@@ -6,7 +6,7 @@
 
 [resource]
 script = ExtResource("1")
-max_health = 30
+max_health = 100
 move_speed = 90.0
 sight_range = 300.0
 preferred_distance = 180.0

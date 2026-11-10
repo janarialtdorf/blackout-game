@@ -1,6 +1,60 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://ba6g5efmxop50"]
 
-[ext_resource type="PackedScene" path="res://abilities/beam_effect.tscn" id="1"]
+[ext_resource type="Texture2D" uid="uid://dw4n4ku86woki" path="res://assets/sniperUlt/frame0000.png" id="frame0"]
+[ext_resource type="Texture2D" uid="uid://svm4r6bhs1qw" path="res://assets/sniperUlt/frame0001.png" id="frame1"]
+[ext_resource type="Texture2D" uid="uid://bh1x8fmp01aeo" path="res://assets/sniperUlt/frame0002.png" id="frame2"]
+[ext_resource type="Texture2D" uid="uid://bw51oo0bnqt6c" path="res://assets/sniperUlt/frame0003.png" id="frame3"]
+[ext_resource type="Texture2D" uid="uid://bsvqw6001ubjl" path="res://assets/sniperUlt/frame0004.png" id="frame4"]
+[ext_resource type="Texture2D" uid="uid://bcdyarigrgypw" path="res://assets/sniperUlt/frame0005.png" id="frame5"]
+[ext_resource type="Texture2D" uid="uid://bl3f586rabbhu" path="res://assets/sniperUlt/frame0006.png" id="frame6"]
+[ext_resource type="Texture2D" uid="uid://38wynv2tx1vi" path="res://assets/sniperUlt/frame0007.png" id="frame7"]
+[ext_resource type="PackedScene" path="res://abilities/screen_flash.tscn" id="screen_flash"]
+[ext_resource type="PackedScene" path="res://abilities/screen_shake.tscn" id="screen_shake"]
 
-[node name="UltimateBeamEffect" instance=ExtResource("1")]
-color = Color(1, 0.75, 0.15, 1)
+[sub_resource type="SpriteFrames" id="SpriteFrames_beam"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("frame0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("frame1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("frame2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("frame3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("frame4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("frame5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("frame6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("frame7")
+}],
+"loop": 0,
+"name": &"default",
+"speed": 20.0
+}]
+
+[node name="UltimateBeamEffect" type="Node2D" unique_id=1375318860]
+
+[node name="Sprite" type="AnimatedSprite2D" parent="." unique_id=686720863]
+scale = Vector2(0.153846, 1.785714)
+sprite_frames = SubResource("SpriteFrames_beam")
+autoplay = "default"
+centered = false
+offset = Vector2(0, -28)
+
+[node name="ScreenFlash" parent="." unique_id=1642072012 instance=ExtResource("screen_flash")]
+color = Color(0.5, 0.8, 1, 0.3)
+
+[node name="ScreenShake" parent="." unique_id=776607577 instance=ExtResource("screen_shake")]
+
+[connection signal="animation_finished" from="Sprite" to="." method="queue_free"]
