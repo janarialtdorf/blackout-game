@@ -39,7 +39,13 @@ func _get_tile_set() -> TileSet:
 	tile_set.add_physics_layer()
 	tile_set.set_physics_layer_collision_layer(0, 1) # "walls" layer
 	var source := TileSetAtlasSource.new()
-	source.texture = load("res://levels/tiles/placeholder_tiles.png")
+	# Tiles stay invisible (they only carry collision and vision blocking); level_drawing.gd on the Tiles node draws the look.
+	var blank := GradientTexture2D.new()
+	blank.gradient = Gradient.new()
+	blank.gradient.colors = PackedColorArray([Color.TRANSPARENT, Color.TRANSPARENT])
+	blank.width = TILE_SIZE * 2
+	blank.height = TILE_SIZE
+	source.texture = blank
 	source.texture_region_size = Vector2i(TILE_SIZE, TILE_SIZE)
 	source.create_tile(FLOOR)
 	source.create_tile(WALL)
@@ -54,7 +60,6 @@ func _get_tile_set() -> TileSet:
 	tile_set.add_occlusion_layer()
 	var occluder := OccluderPolygon2D.new()
 	occluder.polygon = square
-	occluder.cull_mode = OccluderPolygon2D.CULL_COUNTER_CLOCKWISE # light reaches the wall's face; shadow starts behind it
 	wall.set_occluder_polygons_count(0, 1)
 	wall.set_occluder_polygon(0, 0, occluder)
 	ResourceSaver.save(tile_set, TILE_SET_PATH)
@@ -71,7 +76,7 @@ func _build_level(level_name: String, tile_set: TileSet) -> void:
 		var next := "level_%d" % (level_name.trim_prefix("level_").to_int() + 1)
 		if FileAccess.file_exists(MAPS_DIR + next + ".txt"):
 			root.next_level = "res://levels/%s.tscn" % next
-	var tiles := TileMapLayer.new()
+	var tiles := LevelDrawing.new()
 	tiles.name = "Tiles"
 	tiles.tile_set = tile_set
 	_add(root, tiles)
@@ -82,7 +87,7 @@ func _build_level(level_name: String, tile_set: TileSet) -> void:
 	var darkness := CanvasModulate.new()
 	darkness.name = "Darkness"
 	darkness.set_script(preload("res://levels/darkness.gd"))
-	darkness.color = Color(0.3, 0.3, 0.36) # dim enough for the cone to stand out, bright enough to read the layout
+	darkness.color = Color(0.5, 0.5, 0.5) # vision lights add the other half back (VisionComponent energy 0.5)
 	darkness.visible = false
 	_add(root, darkness)
 

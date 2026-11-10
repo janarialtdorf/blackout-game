@@ -2,11 +2,29 @@
 
 [ext_resource type="Script" path="res://ui/hud.gd" id="1"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBox_bar_background"]
-bg_color = Color(0.2, 0.2, 0.24, 0.85)
+[sub_resource type="StyleBoxFlat" id="StyleBox_cooldown_box"]
+bg_color = Color(0.3, 0.3, 0.3, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
 
 [sub_resource type="StyleBoxFlat" id="StyleBox_cooldown_fill"]
-bg_color = Color(0.75, 0.75, 0.8, 1)
+bg_color = Color(0.78, 0.78, 0.78, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
 
 [node name="HUD" type="CanvasLayer"]
 script = ExtResource("1")
@@ -22,13 +40,32 @@ theme_override_constants/separation = 6
 unique_name_in_owner = true
 theme_override_constants/separation = 6
 
-[node name="SwitchLabel" type="Label" parent="Margin/Panel"]
-theme_override_font_sizes/font_size = 12
-text = "Switch cooldown"
-
 [node name="SwitchCooldownBar" type="ProgressBar" parent="Margin/Panel"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(190, 6)
-theme_override_styles/background = SubResource("StyleBox_bar_background")
+custom_minimum_size = Vector2(110, 80)
+size_flags_horizontal = 0
+theme_override_styles/background = SubResource("StyleBox_cooldown_box")
 theme_override_styles/fill = SubResource("StyleBox_cooldown_fill")
+fill_mode = 3
 show_percentage = false
+
+[node name="Seconds" type="Label" parent="Margin/Panel/SwitchCooldownBar"]
+unique_name_in_owner = true
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 56
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SwitchLabel" type="Label" parent="Margin/Panel"]
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 14
+text = "switch cooldown"

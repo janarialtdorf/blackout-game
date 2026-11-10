@@ -7,7 +7,7 @@ extends Node2D
 signal wiped
 
 ## Where teammates walk to, behind the hero you control (x = forward, y = sideways).
-const FOLLOW_OFFSETS: Array[Vector2] = [Vector2(-40, -30), Vector2(-40, 30)]
+const FOLLOW_OFFSETS: Array[Vector2] = [Vector2(-120, -90), Vector2(-80, 60)]
 
 ## Seconds after a switch before you can switch again (shared by all heroes).
 @export var switch_cooldown: float = 3.0

@@ -9,6 +9,7 @@ var _cards: Dictionary[Hero, HeroCard] = {}
 
 @onready var _card_list: VBoxContainer = %Cards
 @onready var _cooldown_bar: ProgressBar = %SwitchCooldownBar
+@onready var _cooldown_seconds: Label = %Seconds
 
 
 func show_squad(heroes: Array[Hero], switch_cooldown: Timer) -> void:
@@ -29,3 +30,4 @@ func _process(_delta: float) -> void:
 	if _switch_cooldown:
 		_cooldown_bar.max_value = _switch_cooldown.wait_time
 		_cooldown_bar.value = _switch_cooldown.time_left
+		_cooldown_seconds.text = str(ceili(_switch_cooldown.time_left)) if _switch_cooldown.time_left > 0.0 else ""

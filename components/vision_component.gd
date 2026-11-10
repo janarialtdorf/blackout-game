@@ -4,7 +4,7 @@ extends PointLight2D
 ## while active, hides every node in the "hidden_in_dark" group that it can't see.
 ## The light shape is generated from the numbers, so no texture asset is needed.
 
-const TEXTURE_SIZE := 256
+const TEXTURE_SIZE := 512
 
 # Timed team-wide effects (Seer abilities), shared by every VisionComponent.
 static var _reveal_until_msec := 0
@@ -68,16 +68,20 @@ func _sees_through_walls_now() -> bool:
 
 
 # White inside the vision shape, fading out toward the edge; black outside.
+# The shape's sides get a one-pixel soft edge: the texture is stretched to vision_range
+# (4x for the sniper), and hard on/off pixels would stretch into visible stair steps.
 func _make_texture() -> ImageTexture:
 	var image := Image.create_empty(TEXTURE_SIZE, TEXTURE_SIZE, false, Image.FORMAT_L8)
 	var center := Vector2.ONE * TEXTURE_SIZE / 2.0
-	var near := near_radius / vision_range
+	var near_pixels := near_radius / vision_range * center.x
 	var half_angle := deg_to_rad(angle_degrees) / 2.0
 	for y in TEXTURE_SIZE:
 		for x in TEXTURE_SIZE:
 			var offset := Vector2(x, y) + Vector2(0.5, 0.5) - center
-			var distance := offset.length() / center.x # 0 at the hero, 1 at vision_range
-			var in_shape := distance <= near or absf(offset.angle()) <= half_angle
-			var brightness := clampf((1.0 - distance) / 0.25, 0.0, 1.0) if in_shape else 0.0
+			var pixels := offset.length()
+			# Distance in pixels to the cone's side and to the near circle (positive = inside).
+			var to_cone_side := pixels * sin(clampf(half_angle - absf(offset.angle()), -PI / 2.0, PI / 2.0))
+			var inside := clampf(maxf(to_cone_side, near_pixels - pixels) + 0.5, 0.0, 1.0)
+			var brightness := inside * clampf((1.0 - pixels / center.x) / 0.25, 0.0, 1.0)
 			image.set_pixel(x, y, Color(brightness, brightness, brightness))
 	return ImageTexture.create_from_image(image)

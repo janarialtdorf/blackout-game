@@ -4,7 +4,7 @@ extends CharacterBody2D
 ## that follows the leader and shoots the nearest enemy it has a clear line to.
 
 ## Teammates stop walking once they are this close to their spot behind the leader.
-const FOLLOW_SLACK := 24.0
+const FOLLOW_SLACK := 120.0
 
 @export var stats: HeroStats
 

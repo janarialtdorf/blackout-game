@@ -27,9 +27,11 @@ func _run() -> void:
 	# Teleport the leader across the room; the AI teammates walk after it.
 	seer.set_physics_process(false)
 	seer.global_position = Vector2(464, 272)
-	var start_distance := fighter.global_position.distance_to(seer.global_position)
+	var spot := seer.global_position + fighter.follow_offset.rotated(seer.global_rotation)
+	check(fighter.global_position.distance_to(spot) > Hero.FOLLOW_SLACK, "the teleport puts the teammate outside its free area")
 	await wait(180)
-	check(fighter.global_position.distance_to(seer.global_position) < start_distance / 2.0, "AI teammates follow the leader")
+	# A small margin: the teammate stops on the first frame it is inside the free area.
+	check(fighter.global_position.distance_to(spot) <= Hero.FOLLOW_SLACK + 8.0, "AI teammates walk back into their free area behind the leader")
 	check(fighter.global_position.distance_to(sniper.global_position) > 20.0, "teammates take different spots behind the leader")
 
 	# An enemy in a teammate's clear line of fire gets shot.
