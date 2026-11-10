@@ -1,13 +1,17 @@
 [gd_resource type="TileSet" format=3 uid="uid://cg38w0x1tlsnv"]
 
-[ext_resource type="Texture2D" uid="uid://c5q54qqhllklv" path="res://levels/tiles/placeholder_tiles.png" id="1_i7m2l"]
-
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_i7m2l"]
-cull_mode = 2
 polygon = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 
+[sub_resource type="Gradient" id="Gradient_blank"]
+colors = PackedColorArray(0, 0, 0, 0, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_blank"]
+gradient = SubResource("Gradient_blank")
+height = 32
+
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0ag1g"]
-texture = ExtResource("1_i7m2l")
+texture = SubResource("GradientTexture2D_blank")
 texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
 1:0/0 = 0

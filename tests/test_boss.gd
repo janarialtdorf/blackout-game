@@ -43,6 +43,8 @@ func _run() -> void:
 	var exit: LevelExit = current_scene.find_children("*", "LevelExit")[0]
 	boss = current_scene.find_children("*", "Boss")[0]
 	check(exit.locked, "the exit starts locked while the boss lives")
+	var objective: ObjectivePanel = current_scene.find_child("ObjectivePanel", false, false)
+	check(objective.get_node("%Goal").text == "Defeat the boss", "the objective says to defeat the boss")
 	check(current_scene.find_child("BossBar", false, false) == null, "no boss bar before the boss appears")
 	squad().active.global_position = exit.global_position
 	await wait(5)
@@ -58,3 +60,4 @@ func _run() -> void:
 	await process_frame
 	check(not is_instance_valid(bar), "the boss bar goes away when the boss dies")
 	check(not exit.locked, "killing the boss unlocks the exit")
+	check(objective.get_node("%Goal").text == "Reach the exit", "after the boss the objective says to reach the exit")

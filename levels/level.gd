@@ -7,12 +7,14 @@ extends Node2D
 
 const RESULT_SCREEN := preload("res://ui/result_screen.tscn")
 const BOSS_BAR := preload("res://ui/boss_bar.tscn")
+const OBJECTIVE_PANEL := preload("res://ui/objective_panel.tscn")
 
 ## The level to load when the exit is reached. Empty = this is the last level.
 @export_file("*.tscn") var next_level: String
 
 var _exits: Array[LevelExit] = []
 var _bosses_alive := 0
+var _objective: ObjectivePanel
 
 
 func _ready() -> void:
@@ -24,6 +26,8 @@ func _ready() -> void:
 		_bosses_alive += 1
 		boss.health.died.connect(_on_boss_died)
 		boss.appeared.connect(_show_boss_bar.bind(boss))
+	_objective = OBJECTIVE_PANEL.instantiate()
+	add_child(_objective)
 	_set_exits_locked(_bosses_alive > 0)
 
 
@@ -41,6 +45,7 @@ func _on_boss_died() -> void:
 func _set_exits_locked(locked: bool) -> void:
 	for exit in _exits:
 		exit.locked = locked
+	_objective.show_objective("Defeat the boss" if locked else "Reach the exit")
 
 
 func _on_squad_wiped() -> void:

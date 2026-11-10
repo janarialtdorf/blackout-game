@@ -73,7 +73,7 @@ Nothing in the game uses image files yet; every look is a placeholder made of sh
 
 Other art slots:
 - **Hero portraits:** `Portrait` in the hero's stats `.tres`.
-- **Floor/wall tiles:** replace `levels/tiles/placeholder_tiles.png` (32×32 tiles: floor, then wall). Wall collision and vision blocking come from the tile set, so they keep working.
+- **Floor/walls:** the tiles are invisible (they only carry wall collision and vision blocking). Change the floor colour and wall lines on the `Tiles` node in each level (its script is `levels/level_drawing.gd`).
 - **Ability effects:** scenes in `abilities/`. Draw at a 100 px radius (rings) or 100×100 px starting at the left edge (beams), play the animation, then call `queue_free()`.
 - **Exit tile:** `levels/level_exit.tscn`.
 

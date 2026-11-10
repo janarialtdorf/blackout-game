@@ -28,7 +28,7 @@ func _run() -> void:
 
 	near.health.take_damage(near.health.max_health)
 	hidden.health.take_damage(hidden.health.max_health)
-	await wait(2)
+	await wait(30) # the die animation plays first
 	check(not is_instance_valid(near) and not is_instance_valid(hidden), "an enemy is removed when it dies")
 
 	# --- Shooter keeps its distance and fires from range

@@ -48,6 +48,7 @@ passive_per_second = 20.0
 path_desired_distance = 4.0
 
 [node name="VisionComponent" type="PointLight2D" parent="." unique_id=2023495632]
+energy = 0.5
 shadow_filter = 1
 shadow_filter_smooth = 2.0
 script = ExtResource("6")

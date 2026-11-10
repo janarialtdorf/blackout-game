@@ -32,6 +32,7 @@ func _run() -> void:
 	await process_frame
 	check(cards[1].get_theme_stylebox(&"panel") == cards[1].active_style and card.get_theme_stylebox(&"panel") == card.normal_style, "the highlight moves on switch")
 	check(cooldown_bar.value > 0.0 and cooldown_bar.max_value == 3.0, "the cooldown bar shows the switch cooldown")
+	check(hud.get_node("%Seconds").text == "3", "the cooldown box shows the seconds left")
 
 	team.heroes[2].health.take_damage(team.heroes[2].health.max_health)
 	check(cards[2].modulate != Color.WHITE, "a dead hero's card is greyed out")
