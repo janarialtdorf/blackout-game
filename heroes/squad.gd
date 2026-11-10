@@ -46,6 +46,10 @@ func try_switch(index: int) -> bool:
 	if hero == active or not hero.is_alive() or not _cooldown.is_stopped():
 		return false
 	_cooldown.start(switch_cooldown)
+	# Swap places, so the hero you pick appears where you were and your position never jumps.
+	var your_spot := active.global_position
+	active.global_position = hero.global_position
+	hero.global_position = your_spot
 	_set_active(hero)
 	hero.switch_in()
 	return true

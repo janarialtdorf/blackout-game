@@ -1,20 +1,18 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://bsilk8c7gms7l"]
 
-[ext_resource type="Script" path="res://components/visual.gd" id="1"]
-[ext_resource type="Script" path="res://components/body_drawing.gd" id="body"]
-[ext_resource type="AnimationLibrary" path="res://enemies/enemy_animations.tres" id="anims"]
+[ext_resource type="Script" uid="uid://by25uuib183wf" path="res://components/visual.gd" id="1"]
+[ext_resource type="AnimationLibrary" uid="uid://bvmj4t8rrd53p" path="res://enemies/enemy_animations.tres" id="anims"]
+[ext_resource type="Script" uid="uid://c614jj526f1h" path="res://components/body_drawing.gd" id="body"]
 
-[node name="Visual" type="Node2D"]
+[node name="Visual" type="Node2D" unique_id=1080306521]
 script = ExtResource("1")
 
-[node name="Body" type="Node2D" parent="."]
+[node name="Body" type="Node2D" parent="." unique_id=208607785]
 script = ExtResource("body")
 color = Color(0.9, 0.15, 0.15, 1)
 radius = 15.0
 shape = 1
 barrel = false
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": ExtResource("anims")
-}
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1239946828]
+libraries/ = ExtResource("anims")

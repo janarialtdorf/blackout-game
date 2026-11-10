@@ -3,6 +3,9 @@ extends CharacterBody2D
 ## One squad member. Controlled by the player, or (when not controlled) an AI teammate
 ## that follows the leader and shoots the nearest enemy it has a clear line to.
 
+## A dash() reached its distance or was blocked.
+signal dash_finished
+
 ## Teammates stop walking once they are this close to their spot behind the leader.
 const FOLLOW_SLACK := 120.0
 
@@ -17,12 +20,15 @@ var leader: Hero
 ## Where this teammate walks to, relative to the leader (rotates with the leader).
 var follow_offset := Vector2.ZERO
 var visual: Visual
+var _dash_velocity := Vector2.ZERO
+var _dash_time_left := 0.0
 
 @onready var weapon: WeaponComponent = $WeaponComponent
 @onready var health: HealthComponent = $HealthComponent
 @onready var vision: VisionComponent = $VisionComponent
 @onready var nav: NavigationAgent2D = $NavigationAgent2D
 @onready var ultimate: UltimateComponent = $UltimateComponent
+@onready var knockback: KnockbackComponent = $KnockbackComponent
 
 
 func _ready() -> void:
@@ -38,19 +44,43 @@ func _ready() -> void:
 
 ## Called by the Squad when the player switches to this hero: fires the ultimate if the meter is full.
 func switch_in() -> void:
+	visual.play(&"land")
 	if ultimate.is_full() and stats.ultimate:
 		look_at(get_global_mouse_position())
+		ultimate.consume()
 		stats.ultimate.activate(self)
-		ultimate.consume() # after, so the ultimate's own damage doesn't recharge it
 
 
-func _physics_process(_delta: float) -> void:
+## Moves the hero by `offset` over `duration` seconds, ignoring input. Ends early at a wall or
+## body in the way. Use with `await`.
+func dash(offset: Vector2, duration: float) -> void:
+	_dash_velocity = offset / duration
+	_dash_time_left = duration
+	await dash_finished
+
+
+func _physics_process(delta: float) -> void:
+	if _dash_time_left > 0.0:
+		_dash_step(delta)
+		return
 	if controlled:
 		_player_control()
 	else:
 		_ai_control()
+	velocity += knockback.step(delta) # added, so you keep steering while pushed
 	move_and_slide()
 	visual.play(&"walk" if velocity != Vector2.ZERO else &"idle")
+
+
+func _dash_step(delta: float) -> void:
+	# The last step is shortened so the dash covers exactly its distance.
+	velocity = _dash_velocity * minf(_dash_time_left, delta) / delta
+	move_and_slide()
+	visual.play(&"walk")
+	_dash_time_left -= delta
+	if _dash_time_left <= 0.0 or get_slide_collision_count() > 0:
+		_dash_time_left = 0.0
+		dash_finished.emit()
 
 
 func _player_control() -> void:

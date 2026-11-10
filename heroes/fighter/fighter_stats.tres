@@ -4,13 +4,15 @@
 [ext_resource type="PackedScene" uid="uid://bp7xlqn43clat" path="res://heroes/fighter/fighter_visual.tscn" id="2"]
 [ext_resource type="Resource" uid="uid://8r4qemqfv3rd" path="res://weapons/shotgun.tres" id="3"]
 [ext_resource type="Script" uid="uid://csgnw8bcvh2mx" path="res://abilities/blast_ability.gd" id="4"]
-[ext_resource type="PackedScene" path="res://abilities/ultimate_ring_effect.tscn" id="6"]
+[ext_resource type="PackedScene" uid="uid://d4hl144iv4ls7" path="res://abilities/ultimate_ring_effect.tscn" id="6"]
 
 [sub_resource type="Resource" id="Resource_ultimate"]
 script = ExtResource("4")
 radius = 220.0
 damage = 100
 knockback = 900.0
+leap = 300.0
+leap_time = 0.5
 effect_scene = ExtResource("6")
 
 [resource]

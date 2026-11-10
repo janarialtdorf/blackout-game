@@ -1,6 +1,58 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://d4hl144iv4ls7"]
 
-[ext_resource type="PackedScene" path="res://abilities/ring_effect.tscn" id="1"]
+[ext_resource type="Texture2D" uid="uid://btfeh4v62ni02" path="res://assets/fighterUlt/frame0000.png" id="frame0"]
+[ext_resource type="Texture2D" uid="uid://cqpvfn7mc3n6p" path="res://assets/fighterUlt/frame0001.png" id="frame1"]
+[ext_resource type="Texture2D" uid="uid://y42e0knjtfup" path="res://assets/fighterUlt/frame0002.png" id="frame2"]
+[ext_resource type="Texture2D" uid="uid://cgl10wlm1uwpc" path="res://assets/fighterUlt/frame0003.png" id="frame3"]
+[ext_resource type="Texture2D" uid="uid://l6axjclgpon5" path="res://assets/fighterUlt/frame0004.png" id="frame4"]
+[ext_resource type="Texture2D" uid="uid://dni7no6k6hwab" path="res://assets/fighterUlt/frame0005.png" id="frame5"]
+[ext_resource type="Texture2D" uid="uid://dyp0178a8spfj" path="res://assets/fighterUlt/frame0006.png" id="frame6"]
+[ext_resource type="Texture2D" uid="uid://bgi5del80dic8" path="res://assets/fighterUlt/frame0007.png" id="frame7"]
+[ext_resource type="PackedScene" path="res://abilities/screen_flash.tscn" id="screen_flash"]
+[ext_resource type="PackedScene" path="res://abilities/screen_shake.tscn" id="screen_shake"]
 
-[node name="UltimateRingEffect" instance=ExtResource("1")]
-color = Color(1, 0.75, 0.15, 1)
+[sub_resource type="SpriteFrames" id="SpriteFrames_blast"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("frame0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("frame1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("frame2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("frame3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("frame4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("frame5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("frame6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("frame7")
+}],
+"loop": 0,
+"name": &"default",
+"speed": 20.0
+}]
+
+[node name="UltimateRingEffect" type="Node2D" unique_id=406909104]
+
+[node name="Sprite" type="AnimatedSprite2D" parent="." unique_id=230653299]
+scale = Vector2(0.454545, 0.454545)
+sprite_frames = SubResource("SpriteFrames_blast")
+autoplay = "default"
+
+[node name="ScreenFlash" parent="." instance=ExtResource("screen_flash")]
+color = Color(1, 0.15, 0.1, 0.3)
+
+[node name="ScreenShake" parent="." instance=ExtResource("screen_shake")]
+
+[connection signal="animation_finished" from="Sprite" to="." method="queue_free"]

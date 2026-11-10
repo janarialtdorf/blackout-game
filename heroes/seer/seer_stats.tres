@@ -2,9 +2,9 @@
 
 [ext_resource type="Script" uid="uid://i5vabtdd5y6k" path="res://resources/hero_stats.gd" id="1"]
 [ext_resource type="PackedScene" path="res://heroes/seer/seer_visual.tscn" id="2"]
-[ext_resource type="Resource" path="res://weapons/smg.tres" id="3"]
+[ext_resource type="Resource" uid="uid://bwcoo6bvbk20e" path="res://weapons/smg.tres" id="3"]
 [ext_resource type="Script" uid="uid://bej18w4f7pn4j" path="res://abilities/reveal_ability.gd" id="4"]
-[ext_resource type="PackedScene" path="res://abilities/ultimate_reveal_effect.tscn" id="6"]
+[ext_resource type="PackedScene" uid="uid://blh4e17o7fxp6" path="res://abilities/ultimate_reveal_effect.tscn" id="6"]
 
 [sub_resource type="Resource" id="Resource_ultimate"]
 script = ExtResource("4")

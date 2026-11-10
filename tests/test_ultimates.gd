@@ -40,7 +40,10 @@ func _run() -> void:
 	check(damage_taken(close) == 0, "nothing fires on switch-in with a meter below full")
 	check(team.heroes.all(func(hero: Hero) -> bool: return hero.ultimate.charge == 99.0), "a part-full meter is kept")
 
-	# --- Fighter: 100-damage shockwave with knockback
+	# --- Fighter: 100-damage shockwave with knockback (blast on the spot first; the leap is tested below)
+	var blast: BlastAbility = fighter.stats.ultimate
+	var leap := blast.leap
+	blast.leap = 0.0
 	fighter.ultimate.charge = 100.0
 	fighter.switch_in()
 	check(damage_taken(close) == 100, "Fighter's ultimate deals 100 damage around it")
@@ -55,6 +58,38 @@ func _run() -> void:
 	close.free()
 	behind_wall.free()
 
+	# --- Fighter: dashes forward, then blasts where it lands (open rows 8-9; short leap_time keeps the test fast)
+	blast.leap = leap
+	var leap_time := blast.leap_time
+	blast.leap_time = 0.5
+	check(leap == 300.0, "the Fighter leaps 300 px before its shockwave")
+	fighter.global_position = Vector2(200, 272)
+	fighter.rotation = 0.0
+	var at_start := spawn_target(Vector2(150, 272)) # near the start, out of reach of the landing spot
+	var at_landing := spawn_target(Vector2(560, 272))
+	fighter.set_physics_process(true)
+	blast.activate(fighter)
+	await wait(5)
+	check(damage_taken(at_landing) == 0, "no shockwave during the dash")
+	await fighter.dash_finished
+	fighter.set_physics_process(false)
+	check(fighter.global_position.distance_to(Vector2(500, 272)) < 2.0, "the dash covers the leap distance toward the aim")
+	check(damage_taken(at_landing) == 100 and damage_taken(at_start) == 0, "the shockwave fires where the dash ends")
+	fighter.global_position = Vector2(200, 272)
+	fighter.rotation = -PI / 2.0 # a wall is right above
+	fighter.set_physics_process(true)
+	var frames := [0]
+	var count_frame := func() -> void: frames[0] += 1
+	physics_frame.connect(count_frame)
+	blast.activate(fighter)
+	await fighter.dash_finished
+	physics_frame.disconnect(count_frame)
+	fighter.set_physics_process(false)
+	check(frames[0] < 20, "a wall in the way ends the dash early")
+	blast.leap_time = leap_time
+	at_start.free()
+	at_landing.free()
+
 	# --- Sniper: aimed 150-damage beam through walls
 	sniper.global_position = Vector2(176, 112)
 	sniper.rotation = 0.0 # aiming right, through the wall column at x = 256..288
@@ -64,6 +99,24 @@ func _run() -> void:
 	sniper.stats.ultimate.activate(sniper) # switch_in would aim at the (absent) mouse
 	check(damage_taken(in_line) == 150, "Sniper's beam hits through walls for 150")
 	check(damage_taken(off_line) == 0, "Sniper's beam only hits along where it is aimed")
+	var beam: Node2D = current_scene.get_child(current_scene.get_child_count() - 1)
+	sniper.global_position += Vector2(0, 40)
+	sniper.rotation = 1.0
+	await process_frame
+	check(beam.global_position == sniper.global_position and beam.rotation == 0.0, "the beam moves with the Sniper but keeps its firing direction")
+	# Recoil: fire aiming right in an open row (rows 8-9 have no walls), then let the Sniper move, no keys pressed.
+	sniper.global_position = Vector2(400, 272)
+	sniper.rotation = 0.0
+	sniper.stats.ultimate.activate(sniper)
+	var before_recoil := sniper.global_position
+	sniper.controlled = true
+	sniper.set_physics_process(true)
+	await wait(40)
+	sniper.set_physics_process(false)
+	sniper.controlled = false
+	var pushed := sniper.global_position - before_recoil
+	var recoil: float = sniper.stats.ultimate.recoil
+	check(recoil > 0.0 and absf(pushed.x + recoil) < 3.0 and absf(pushed.y) < 1.0, "the Sniper's beam pushes it back by its recoil, away from the aim")
 	in_line.free()
 	off_line.free()
 

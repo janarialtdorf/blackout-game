@@ -12,7 +12,15 @@ func _run() -> void:
 	check(team.active == fighter and fighter.controlled and fighter.vision.active, "starts as hero 1 with its vision on")
 	check(not sniper.vision.active and not seer.vision.active, "teammates' vision is off")
 
+	var fighter_spot := fighter.global_position
+	var sniper_spot := sniper.global_position
 	_press("switch_2")
+	check(sniper.global_position == fighter_spot and fighter.global_position == sniper_spot, "switching swaps the two heroes' places")
+	var sniper_player: AnimationPlayer = sniper.visual.get_node("AnimationPlayer")
+	check(sniper_player.current_animation == &"land", "the hero you switch to drops in")
+	sniper.health.take_damage(1) # a hit mid-drop must not leave it stuck oversized
+	await wait(30)
+	check(sniper.visual.scale == Vector2.ONE and sniper.visual.modulate == Color.WHITE, "after the drop (even if hit mid-drop) the hero is normal size")
 	await physics_frame
 	check(team.active == sniper and sniper.controlled and not fighter.controlled, "key 2 switches control to hero 2")
 	check(sniper.vision.active and not fighter.vision.active, "vision moves with control")
