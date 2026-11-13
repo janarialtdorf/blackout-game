@@ -1,21 +1,44 @@
 class_name GameTest
-extends SceneTree
+extends Node
 ## Base for every tests/test_*.gd. A test overrides _run(); failures are counted and the
-## process exits with code 1 if any check failed. Run one test:
-##   Godot.exe --headless --path . --script res://tests/test_<name>.gd
+## process exits with code 1 if any check failed. Tests run inside the real game via
+## tools/run.tscn, so autoloads and everything else work as when playing. Run one test:
+##   Godot.exe --headless --path . res://tools/run.tscn -- res://tests/test_<name>.gd
 ## The test room: squad spawns at (176, 112); a wall column at x = 256..288 blocks rows 1-3.
 
 const TEST_ROOM := "res://levels/test_room.tscn"
 const CHASER := preload("res://enemies/chaser/chaser.tscn")
 const SHOOTER := preload("res://enemies/shooter/shooter.tscn")
 
+# The game tree's members under their own names, so tests can write `current_scene` or
+# `await physics_frame` instead of `get_tree().current_scene`.
+var current_scene: Node:
+	get: return get_tree().current_scene
+var paused: bool:
+	get: return get_tree().paused
+	set(value): get_tree().paused = value
+var root: Window:
+	get: return get_tree().root
+var physics_frame: Signal:
+	get: return get_tree().physics_frame
+var process_frame: Signal:
+	get: return get_tree().process_frame
+
 var _failures := 0
 
 
-func _initialize() -> void:
+func _ready() -> void:
 	await _run()
 	paused = false
-	quit(1 if _failures else 0)
+	get_tree().quit(1 if _failures else 0)
+
+
+func get_nodes_in_group(group: StringName) -> Array[Node]:
+	return get_tree().get_nodes_in_group(group)
+
+
+func create_timer(seconds: float) -> SceneTreeTimer:
+	return get_tree().create_timer(seconds)
 
 
 func _run() -> void:
@@ -31,7 +54,7 @@ func check(ok: bool, what: String) -> void:
 ## Loads a scene and waits until its nodes are ready. empty = free the enemies placed in it.
 func load_scene(path: String, empty := false) -> Node:
 	paused = false
-	change_scene_to_file(path)
+	get_tree().change_scene_to_file(path)
 	await process_frame
 	await process_frame
 	if empty:

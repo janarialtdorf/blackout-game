@@ -1,7 +1,7 @@
-extends SceneTree
+extends Node
 ## Turns every text map in res://levels/maps/ into a level scene res://levels/<name>.tscn.
 ## Run from the project folder:
-##   & "C:\Program Files\Godot\Godot.exe.exe" --headless --path . --script res://tools/build_levels.gd
+##   & "C:\Program Files\Godot\Godot.exe.exe" --headless --path . res://tools/run.tscn -- res://tools/build_levels.gd
 ## WARNING: overwrites levels/<name>.tscn. Once you edit a level in the editor, delete its .txt.
 ##
 ## Map legend:  # wall   . floor   (space = nothing)   + every letter in PLACE (on floor):
@@ -22,12 +22,12 @@ const PLACE := {
 }
 
 
-func _init() -> void:
+func _ready() -> void:
 	var tile_set := _get_tile_set()
 	for file in DirAccess.get_files_at(MAPS_DIR):
 		if file.ends_with(".txt"):
 			_build_level(file.get_basename(), tile_set)
-	quit()
+	get_tree().quit()
 
 
 # Only created if missing, so art you add to the tile set in the editor is kept.
