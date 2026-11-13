@@ -43,7 +43,7 @@ func _run() -> void:
 	check(current_scene.scene_file_path == chain[0], "an AI teammate on the exit does nothing")
 	team.active.global_position = exit.global_position
 	await wait(5)
-	await process_frame
+	await wait_for_fade()
 	check(current_scene.scene_file_path == chain[1], "the controlled hero on the exit loads the next level")
 
 	# --- Last level: win screen, then back to level 1
