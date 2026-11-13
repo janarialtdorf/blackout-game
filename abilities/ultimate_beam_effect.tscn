@@ -56,5 +56,6 @@ offset = Vector2(0, -28)
 color = Color(0.5, 0.8, 1, 0.3)
 
 [node name="ScreenShake" parent="." unique_id=776607577 instance=ExtResource("screen_shake")]
+strength = 9.0
 
 [connection signal="animation_finished" from="Sprite" to="." method="queue_free"]

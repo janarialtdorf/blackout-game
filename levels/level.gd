@@ -49,15 +49,14 @@ func _set_exits_locked(locked: bool) -> void:
 
 
 func _on_squad_wiped() -> void:
-	_show_result("Mission failed", "Retry", get_tree().reload_current_scene)
+	_show_result("Mission failed", "Retry", SceneFader.change_scene)
 
 
 func _on_exit_reached() -> void:
 	if next_level:
-		get_tree().change_scene_to_file.call_deferred(next_level)
+		SceneFader.change_scene(next_level)
 	else:
-		var first_level: String = ProjectSettings.get_setting("application/run/main_scene")
-		_show_result("Mission complete!", "Play again", get_tree().change_scene_to_file.bind(first_level))
+		_show_result("Mission complete!", "Play again", SceneFader.change_scene.bind(StartMenu.FIRST_LEVEL))
 
 
 func _show_result(title: String, button_text: String, on_confirmed: Callable) -> void:

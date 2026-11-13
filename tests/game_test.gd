@@ -88,18 +88,22 @@ func result_title() -> String:
 	return screen.get_node("%Title").text if screen else ""
 
 
+## Waits until a SceneFader transition (fade out, scene swap, fade back in) has finished.
+func wait_for_fade() -> void:
+	await create_timer(SceneFader.FADE_TIME * 2.0 + 0.2).timeout
+
+
 func press_result_button() -> void:
 	var screen := current_scene.find_child("ResultScreen", false, false)
 	if screen:
 		screen.get_node("%Button").pressed.emit()
-	await process_frame
-	await process_frame
+	await wait_for_fade()
 
 
-## Every real level, in play order, following next_level from the main scene.
+## Every real level, in play order, following next_level from the first level.
 func level_chain() -> Array[String]:
 	var chain: Array[String] = []
-	var path: String = ProjectSettings.get_setting("application/run/main_scene")
+	var path: String = StartMenu.FIRST_LEVEL
 	while path and path not in chain:
 		chain.append(path)
 		var level: Level = load(path).instantiate()

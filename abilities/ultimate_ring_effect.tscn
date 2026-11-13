@@ -50,9 +50,11 @@ scale = Vector2(0.454545, 0.454545)
 sprite_frames = SubResource("SpriteFrames_blast")
 autoplay = "default"
 
-[node name="ScreenFlash" parent="." instance=ExtResource("screen_flash")]
+[node name="ScreenFlash" parent="." unique_id=1351219088 instance=ExtResource("screen_flash")]
 color = Color(1, 0.15, 0.1, 0.3)
 
-[node name="ScreenShake" parent="." instance=ExtResource("screen_shake")]
+[node name="ScreenShake" parent="." unique_id=683947618 instance=ExtResource("screen_shake")]
+strength = 10.0
+duration = 1.0
 
 [connection signal="animation_finished" from="Sprite" to="." method="queue_free"]
