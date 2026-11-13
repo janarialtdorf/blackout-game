@@ -1,8 +1,8 @@
-class_name SceneFader
 extends CanvasLayer
-## Every scene change goes through SceneFader.change_scene(): it fades to black, swaps the scene
-## while the screen is black, and fades back in. The black overlay is created on first use and kept
-## on the tree's root, above every scene, so it survives scene changes.
+## Autoload "SceneFader" (Project Settings → Globals → Autoload). Every scene change goes through
+## SceneFader.change_scene(): it fades to black, swaps the scene while the screen is black, and
+## fades back in. An autoload lives above every scene, so it survives the change. It also fades the
+## game in at launch.
 
 ## Seconds for each half of a fade (to black, and back).
 const FADE_TIME := 0.5
@@ -12,17 +12,13 @@ var _busy := false
 @onready var _black: ColorRect = $Black
 
 
+func _ready() -> void:
+	_black.color.a = 1.0
+	_fade_to(0.0)
+
+
 ## Fades out, loads `path` (empty = restart the current scene) and fades back in.
-static func change_scene(path: String = "") -> void:
-	var root := (Engine.get_main_loop() as SceneTree).root
-	var fader: SceneFader = root.get_node_or_null(^"SceneFader")
-	if not fader:
-		fader = load("res://ui/scene_fader.tscn").instantiate()
-		root.add_child(fader)
-	fader._fade_through_black(path)
-
-
-func _fade_through_black(path: String) -> void:
+func change_scene(path: String = "") -> void:
 	if _busy: # e.g. an exit touched twice during the fade
 		return
 	_busy = true
