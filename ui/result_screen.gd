@@ -14,8 +14,12 @@ func _ready() -> void:
 	_button.pressed.connect(_on_button_pressed)
 
 
-func show_result(title: String, button_text: String) -> void:
+## `sound` (optional) plays once when the screen appears.
+func show_result(title: String, button_text: String, sound: AudioStream = null) -> void:
 	_title.text = title
+	if sound:
+		$Sound.stream = sound
+		$Sound.play()
 	_button.text = button_text
 	_button.grab_focus()
 

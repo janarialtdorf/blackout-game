@@ -4,7 +4,7 @@ extends Area2D
 
 signal reached
 
-## A locked exit is dimmed and ignores heroes. The Level unlocks it when every boss is dead.
+## A locked exit is dimmed and ignores heroes. The Level unlocks it when every enemy is dead.
 @export var locked := false:
 	set(value):
 		locked = value

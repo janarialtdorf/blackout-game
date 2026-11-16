@@ -30,6 +30,9 @@ var _failures := 0
 func _ready() -> void:
 	await _run()
 	paused = false
+	current_scene.queue_free() # stops playing sounds, which would otherwise leak at exit
+	SceneFader.get_node(^"Music").stop() # the soundtrack lives in the autoload, not the scene
+	await create_timer(0.5).timeout # shortcut: timed wait for the audio thread to drop stopped sounds (0.1 s was too short), raise it if "resources still in use" returns
 	get_tree().quit(1 if _failures else 0)
 
 

@@ -2,7 +2,8 @@ extends CanvasLayer
 ## Autoload "SceneFader" (Project Settings → Globals → Autoload). Every scene change goes through
 ## SceneFader.change_scene(): it fades to black, swaps the scene while the screen is black, and
 ## fades back in. An autoload lives above every scene, so it survives the change. It also fades the
-## game in at launch.
+## game in at launch. Its Music player keeps the soundtrack going across scenes (it loops via
+## `finished` → `play`) and restarts it whenever the first level starts.
 
 ## Seconds for each half of a fade (to black, and back).
 const FADE_TIME := 0.5
@@ -10,6 +11,7 @@ const FADE_TIME := 0.5
 var _busy := false
 
 @onready var _black: ColorRect = $Black
+@onready var _music: AudioStreamPlayer = $Music
 
 
 func _ready() -> void:
@@ -25,6 +27,8 @@ func change_scene(path: String = "") -> void:
 	_black.mouse_filter = Control.MOUSE_FILTER_STOP # no clicks while the old scene fades away
 	get_tree().paused = true # the game freezes while it fades out
 	await _fade_to(1.0)
+	if (path if path else get_tree().current_scene.scene_file_path) == StartMenu.FIRST_LEVEL:
+		_music.play()
 	if path:
 		get_tree().change_scene_to_file(path)
 	else:

@@ -17,3 +17,5 @@ extends Resource
 @export var pierces: bool = false
 ## A scene whose root uses visual.gd. Point this at your art scene to reskin the bullet.
 @export var projectile_visual: PackedScene
+## Played on every shot (a shotgun blast or boss ring plays it once). Empty = silent.
+@export var sound: AudioStream

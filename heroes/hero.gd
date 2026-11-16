@@ -128,6 +128,7 @@ func is_alive() -> bool:
 # Dead heroes stay on the floor for the rest of the level. The Squad handles switching away.
 func _on_died() -> void:
 	remove_from_group(&"heroes") # enemies stop targeting it
+	$DeathSound.play()
 	set_physics_process(false)
 	ultimate.set_process(false)
 	vision.active = false

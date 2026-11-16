@@ -5,3 +5,4 @@
 
 [node name="Chaser" instance=ExtResource("1")]
 stats = ExtResource("2")
+patrol = true

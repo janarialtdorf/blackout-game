@@ -12,6 +12,7 @@ const PROJECTILE_SCENE := preload("res://weapons/projectile.tscn")
 @export_flags_2d_physics var hit_mask: int = 1
 
 @onready var _cooldown: Timer = $Cooldown
+@onready var _sound: AudioStreamPlayer2D = $Sound
 
 
 ## Returns true if a shot was fired (false while on cooldown).
@@ -46,6 +47,9 @@ func fire_projectile(angle: float, damage: int) -> void:
 	projectile.add_child(stats.projectile_visual.instantiate())
 	# Added to the level, not to us, so bullets don't move with the shooter.
 	get_tree().current_scene.add_child(projectile)
+	if stats.sound: # one voice: pellets fired together restart the sound instead of stacking
+		_sound.stream = stats.sound
+		_sound.play()
 
 
 func _pellet_angle(i: int) -> float:

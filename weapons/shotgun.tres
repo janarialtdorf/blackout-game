@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://d0ns4yeofxm4s" path="res://resources/weapon_stats.gd" id="1"]
 [ext_resource type="PackedScene" path="res://weapons/bullet_visual.tscn" id="2"]
+[ext_resource type="AudioStream" path="res://assets/audio/laser.wav" id="laser"]
 
 [resource]
 script = ExtResource("1")
@@ -11,3 +12,4 @@ max_range = 300.0
 pellet_count = 5
 spread_degrees = 30.0
 projectile_visual = ExtResource("2")
+sound = ExtResource("laser")
