@@ -7,7 +7,8 @@
 [ext_resource type="Script" uid="uid://bi4y5nu3jvq6v" path="res://components/hurtbox.gd" id="5"]
 [ext_resource type="Script" uid="uid://dydui3cotj0gl" path="res://components/vision_component.gd" id="6"]
 [ext_resource type="Script" uid="uid://4pniyr6wmldh" path="res://components/ultimate_component.gd" id="7"]
-[ext_resource type="Script" path="res://components/knockback_component.gd" id="knockback"]
+[ext_resource type="Script" uid="uid://owa3gjqrpwf5" path="res://components/knockback_component.gd" id="knockback"]
+[ext_resource type="AudioStream" path="res://assets/audio/death_sound.wav" id="death_sound"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_body"]
 radius = 12.0
@@ -43,7 +44,7 @@ shape = SubResource("CircleShape2D_hurt")
 
 [node name="UltimateComponent" type="Node" parent="." unique_id=732100019]
 script = ExtResource("7")
-passive_per_second = 20.0
+passive_per_second = 5.0
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=944749187]
 path_desired_distance = 4.0
@@ -54,5 +55,8 @@ shadow_filter = 1
 shadow_filter_smooth = 2.0
 script = ExtResource("6")
 
-[node name="KnockbackComponent" type="Node" parent="."]
+[node name="KnockbackComponent" type="Node" parent="." unique_id=1390005950]
 script = ExtResource("knockback")
+
+[node name="DeathSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("death_sound")

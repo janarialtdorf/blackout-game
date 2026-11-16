@@ -1,6 +1,7 @@
 [gd_scene format=3]
 
 [ext_resource type="Script" path="res://ui/result_screen.gd" id="1"]
+[ext_resource type="AudioStream" path="res://assets/audio/button.wav" id="2"]
 
 [node name="ResultScreen" type="CanvasLayer"]
 process_mode = 3
@@ -36,3 +37,10 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(180, 44)
 size_flags_horizontal = 4
 text = "Retry"
+
+[node name="ClickSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2")
+
+[node name="Sound" type="AudioStreamPlayer" parent="."]
+
+[connection signal="pressed" from="Center/Column/Button" to="ClickSound" method="play"]

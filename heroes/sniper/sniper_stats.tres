@@ -17,7 +17,6 @@ beam_effect = ExtResource("5")
 script = ExtResource("1")
 display_name = "Sniper"
 max_health = 80
-move_speed = 190.0
 weapon = ExtResource("3")
 ultimate = SubResource("Resource_ultimate")
 vision_range = 560.0

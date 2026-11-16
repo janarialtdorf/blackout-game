@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" path="res://assets/startMenu/start_menu.png" id="2"]
 [ext_resource type="Texture2D" path="res://assets/startMenu/start1.png" id="3"]
 [ext_resource type="Texture2D" path="res://assets/startMenu/start2.png" id="4"]
+[ext_resource type="AudioStream" path="res://assets/audio/button.wav" id="5"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_normal"]
 atlas = ExtResource("3")
@@ -54,4 +55,9 @@ texture_hover = SubResource("AtlasTexture_hover")
 ignore_texture_size = true
 stretch_mode = 5
 
+[node name="ClickSound" type="AudioStreamPlayer" parent="."]
+process_mode = 3
+stream = ExtResource("5")
+
 [connection signal="pressed" from="Start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="Start" to="ClickSound" method="play"]

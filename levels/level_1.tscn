@@ -1,12 +1,12 @@
-[gd_scene format=4]
+[gd_scene format=4 uid="uid://bg8m3b2yqhlfh"]
 
-[ext_resource type="Script" path="res://levels/level.gd" id="1_3sk1a"]
-[ext_resource type="TileSet" path="res://levels/tiles/tile_set.tres" id="2_08mmt"]
-[ext_resource type="Script" path="res://levels/level_drawing.gd" id="3_5ot28"]
-[ext_resource type="Script" path="res://levels/level_navigation.gd" id="4_aerfg"]
-[ext_resource type="Script" path="res://levels/darkness.gd" id="5_nmsli"]
+[ext_resource type="Script" uid="uid://dlaqletukfc8u" path="res://levels/level.gd" id="1_3sk1a"]
+[ext_resource type="TileSet" uid="uid://cg38w0x1tlsnv" path="res://levels/tiles/tile_set.tres" id="2_08mmt"]
+[ext_resource type="Script" uid="uid://b7not1q2toooy" path="res://levels/level_drawing.gd" id="3_5ot28"]
+[ext_resource type="Script" uid="uid://2ihq44qxg1ij" path="res://levels/level_navigation.gd" id="4_aerfg"]
+[ext_resource type="Script" uid="uid://b4sqengt4sjdm" path="res://levels/darkness.gd" id="5_nmsli"]
 [ext_resource type="PackedScene" path="res://enemies/chaser/chaser.tscn" id="6_betor"]
-[ext_resource type="PackedScene" path="res://enemies/shooter/shooter.tscn" id="7_vjtdm"]
+[ext_resource type="PackedScene" uid="uid://bxs6krlw7tiwh" path="res://enemies/shooter/shooter.tscn" id="7_vjtdm"]
 [ext_resource type="PackedScene" path="res://levels/level_exit.tscn" id="8_bgw3c"]
 [ext_resource type="PackedScene" path="res://heroes/squad.tscn" id="9_lrvbd"]
 
@@ -53,10 +53,10 @@ position = Vector2(1104, 528)
 position = Vector2(2128, 656)
 
 [node name="Chaser6" parent="." unique_id=1016595110 instance=ExtResource("6_betor")]
-position = Vector2(688, 752)
+position = Vector2(694, 748)
 
 [node name="Squad" parent="." unique_id=134821952 instance=ExtResource("9_lrvbd")]
-position = Vector2(176, 880)
+position = Vector2(165, 869)
 
 [node name="Shooter3" parent="." unique_id=2093191921 instance=ExtResource("7_vjtdm")]
 position = Vector2(1264, 912)

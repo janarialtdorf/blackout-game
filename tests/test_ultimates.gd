@@ -134,3 +134,8 @@ func _run() -> void:
 	fighter.global_position = Vector2(176, 112)
 	fighter.rotation = 0.0
 	check(fighter.vision.can_see(Vector2(320, 112)), "during the Seer's ultimate the Fighter sees through walls too")
+	await load_scene(TEST_ROOM, true)
+	fighter = squad().heroes[0]
+	fighter.global_position = Vector2(176, 112)
+	fighter.rotation = 0.0
+	check(not fighter.vision.can_see(Vector2(320, 112)), "the Seer's ultimate doesn't carry over into a new level")
