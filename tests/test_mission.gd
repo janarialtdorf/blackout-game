@@ -36,6 +36,7 @@ func _run() -> void:
 	# --- Exit on a level with a next level
 	var chain := level_chain()
 	await load_scene(chain[0], true)
+	complete_objectives() # level 1's exit waits for its objectives (see test_missions.gd)
 	team = squad()
 	var exit: LevelExit = current_scene.find_children("*", "LevelExit")[0]
 	team.heroes[1].global_position = exit.global_position # an AI teammate first: should not count
@@ -51,6 +52,7 @@ func _run() -> void:
 	exit = current_scene.find_children("*", "LevelExit")[0]
 	for enemy: Enemy in get_nodes_in_group(&"enemies"):
 		enemy.health.take_damage(enemy.health.max_health) # killed, not freed: a boss must die to unlock the exit
+	complete_objectives()
 	await wait(2)
 	squad().active.global_position = exit.global_position
 	await wait(5)

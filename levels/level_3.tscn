@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" path="res://enemies/boss/boss.tscn" id="8_svivd"]
 [ext_resource type="PackedScene" path="res://levels/level_exit.tscn" id="9_yafm2"]
 [ext_resource type="PackedScene" path="res://heroes/squad.tscn" id="10_46211"]
+[ext_resource type="PackedScene" path="res://levels/collectible.tscn" id="11_wj73x"]
 
 [node name="Level3" type="Node2D" unique_id=532692268]
 script = ExtResource("1_lsnkt")
@@ -105,3 +106,8 @@ position = Vector2(1232, 1360)
 
 [node name="Shooter9" parent="." unique_id=2138105371 instance=ExtResource("7_u4kh1")]
 position = Vector2(816, 1424)
+
+[node name="BonusIntel" parent="." unique_id=1314931528 instance=ExtResource("11_wj73x")]
+position = Vector2(1376, 64)
+label = "Bonus intel"
+required = false
