@@ -1,5 +1,7 @@
 extends Node
 ## Turns every text map in res://levels/maps/ into a level scene res://levels/<name>.tscn.
+## Only for sketching a NEW level quickly: level_1..3 have no text map any more, they are
+## painted in their TileMapLayer ("Tiles") in the editor.
 ## Run from the project folder:
 ##   & "C:\Program Files\Godot\Godot.exe.exe" --headless --path . res://tools/run.tscn -- res://tools/build_levels.gd
 ## WARNING: overwrites levels/<name>.tscn. Once you edit a level in the editor, delete its .txt.
@@ -24,7 +26,9 @@ const PLACE := {
 
 func _ready() -> void:
 	var tile_set := _get_tile_set()
-	for file in DirAccess.get_files_at(MAPS_DIR):
+	# No maps folder = nothing to build (the real levels are painted in the editor now).
+	var files := DirAccess.get_files_at(MAPS_DIR) if DirAccess.dir_exists_absolute(MAPS_DIR) else PackedStringArray()
+	for file in files:
 		if file.ends_with(".txt"):
 			_build_level(file.get_basename(), tile_set)
 	get_tree().quit()

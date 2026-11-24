@@ -126,6 +126,13 @@ func press_result_button() -> void:
 	await wait_for_fade()
 
 
+## Collects every objective in the current level, as if the hero had picked them all up.
+func complete_objectives() -> void:
+	for item: Collectible in current_scene.find_children("*", "Collectible"):
+		if not item.is_collected:
+			item._collect()
+
+
 ## Every real level, in play order, following next_level from the first level.
 func level_chain() -> Array[String]:
 	var chain: Array[String] = []

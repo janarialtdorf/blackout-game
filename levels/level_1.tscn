@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://bxs6krlw7tiwh" path="res://enemies/shooter/shooter.tscn" id="7_vjtdm"]
 [ext_resource type="PackedScene" path="res://levels/level_exit.tscn" id="8_bgw3c"]
 [ext_resource type="PackedScene" path="res://heroes/squad.tscn" id="9_lrvbd"]
+[ext_resource type="PackedScene" path="res://levels/collectible.tscn" id="10_08mmt"]
 
 [node name="Level1" type="Node2D" unique_id=1983206250]
 script = ExtResource("1_3sk1a")
@@ -66,3 +67,12 @@ position = Vector2(1712, 912)
 
 [node name="Chaser8" parent="." unique_id=884969603 instance=ExtResource("6_betor")]
 position = Vector2(1968, 912)
+
+[node name="Intel" parent="." unique_id=418250036 instance=ExtResource("10_08mmt")]
+position = Vector2(1136, 240)
+
+[node name="Intel2" parent="." unique_id=1558629447 instance=ExtResource("10_08mmt")]
+position = Vector2(1584, 912)
+
+[node name="Intel3" parent="." unique_id=1113720971 instance=ExtResource("10_08mmt")]
+position = Vector2(1840, 688)

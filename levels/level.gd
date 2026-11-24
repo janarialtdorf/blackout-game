@@ -16,6 +16,7 @@ const GAME_OVER_SOUND := preload("res://assets/audio/game_over.wav")
 var _exits: Array[LevelExit] = []
 var _enemies_alive := 0
 var _bosses_alive := 0
+var _collectibles: Array[Collectible] = []
 var _objective: ObjectivePanel
 
 

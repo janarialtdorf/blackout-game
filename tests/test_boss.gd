@@ -44,7 +44,7 @@ func _run() -> void:
 	boss = current_scene.find_children("*", "Boss")[0]
 	check(exit.locked, "the exit starts locked while the boss lives")
 	var objective: ObjectivePanel = current_scene.find_child("ObjectivePanel", false, false)
-	check(objective.get_node("%Goal").text == "Defeat the boss", "the objective says to defeat the boss")
+	check(objective.get_node("%Goal").text.begins_with("Defeat the boss"), "the objective says to defeat the boss")
 	check(current_scene.find_child("BossBar", false, false) == null, "no boss bar before the boss appears")
 	squad().active.global_position = exit.global_position
 	await wait(5)
