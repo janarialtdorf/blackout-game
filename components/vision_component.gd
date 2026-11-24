@@ -33,6 +33,12 @@ static func grant_wall_sight(seconds: float) -> void:
 	_wall_sight_until_msec = Time.get_ticks_msec() + int(seconds * 1000.0)
 
 
+## Ends the timed effects. The timers are static, so they would otherwise outlive the level.
+static func clear_effects() -> void:
+	_reveal_until_msec = 0
+	_wall_sight_until_msec = 0
+
+
 ## Call once from the owner with its stats.
 func configure(range_px: float, angle: float, through_walls: bool) -> void:
 	vision_range = range_px

@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://dyp0178a8spfj" path="res://assets/fighterUlt/frame0006.png" id="frame6"]
 [ext_resource type="Texture2D" uid="uid://bgi5del80dic8" path="res://assets/fighterUlt/frame0007.png" id="frame7"]
 [ext_resource type="PackedScene" path="res://abilities/screen_flash.tscn" id="screen_flash"]
+[ext_resource type="AudioStream" path="res://assets/audio/explosion.wav" id="sound"]
 [ext_resource type="PackedScene" path="res://abilities/screen_shake.tscn" id="screen_shake"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_blast"]
@@ -57,4 +58,10 @@ color = Color(1, 0.15, 0.1, 0.3)
 strength = 10.0
 duration = 1.0
 
-[connection signal="animation_finished" from="Sprite" to="." method="queue_free"]
+[node name="Sound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("sound")
+autoplay = true
+
+[connection signal="animation_finished" from="Sprite" to="Sprite" method="queue_free"]
+[connection signal="animation_finished" from="Sprite" to="ScreenShake" method="queue_free"]
+[connection signal="finished" from="Sound" to="." method="queue_free"]

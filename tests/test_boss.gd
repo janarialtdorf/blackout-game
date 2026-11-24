@@ -56,8 +56,12 @@ func _run() -> void:
 	check(bar != null and bar.get_node("%Name").text == boss.stats.display_name, "the boss bar appears with the boss's name")
 	boss.health.take_damage(500)
 	check(bar.get_node("%Bar").value == boss.health.current, "the boss bar follows the boss's HP")
+	for enemy: Enemy in get_nodes_in_group(&"enemies"):
+		if enemy != boss:
+			enemy.health.take_damage(enemy.health.max_health)
+	check(exit.locked, "the exit stays locked while the boss lives")
 	boss.health.take_damage(boss.health.max_health)
 	await process_frame
 	check(not is_instance_valid(bar), "the boss bar goes away when the boss dies")
-	check(not exit.locked, "killing the boss unlocks the exit")
-	check(objective.get_node("%Goal").text.begins_with("Reach the exit"), "after the boss the objective says to reach the exit")
+	check(not exit.locked, "killing the boss (last enemy) unlocks the exit")
+	check(objective.get_node("%Goal").text == "Reach the exit", "after the boss the objective says to reach the exit")

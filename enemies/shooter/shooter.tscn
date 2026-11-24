@@ -5,3 +5,4 @@
 
 [node name="Shooter" unique_id=1974613914 instance=ExtResource("1")]
 stats = ExtResource("2")
+patrol = true

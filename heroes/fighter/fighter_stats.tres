@@ -18,7 +18,8 @@ effect_scene = ExtResource("6")
 [resource]
 script = ExtResource("1")
 display_name = "Fighter"
-max_health = 150
+max_health = 300
+move_speed = 150.0
 weapon = ExtResource("3")
 ultimate = SubResource("Resource_ultimate")
 vision_angle = 88.358
