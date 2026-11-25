@@ -134,6 +134,12 @@ func _run() -> void:
 	fighter.global_position = Vector2(176, 112)
 	fighter.rotation = 0.0
 	check(fighter.vision.can_see(Vector2(320, 112)), "during the Seer's ultimate the Fighter sees through walls too")
+	await wait(60)
+	check(team.camera.zoom == Vector2.ONE * 0.75, "during the Seer's ultimate the camera zooms out to 0.75")
+	seer.override_camera_zoom(0.75, 0.1) # end the zoom early instead of waiting 8 s
+	seer.set_physics_process(true) # its zoom timer counts down there
+	await wait(60)
+	check(team.camera.zoom == Vector2.ONE * 1.25, "when it ends the camera goes back to the Seer's 1.25")
 	await load_scene(TEST_ROOM, true)
 	fighter = squad().heroes[0]
 	fighter.global_position = Vector2(176, 112)

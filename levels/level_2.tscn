@@ -1,11 +1,11 @@
-[gd_scene format=4]
+[gd_scene format=4 uid="uid://ckce7m5lgbgv0"]
 
-[ext_resource type="Script" path="res://levels/level.gd" id="1_at1ld"]
-[ext_resource type="TileSet" path="res://levels/tiles/tile_set.tres" id="2_sd18g"]
-[ext_resource type="Script" path="res://levels/level_drawing.gd" id="3_vm7no"]
-[ext_resource type="Script" path="res://levels/level_navigation.gd" id="4_hbb88"]
-[ext_resource type="Script" path="res://levels/darkness.gd" id="5_wcjpl"]
-[ext_resource type="PackedScene" path="res://enemies/shooter/shooter.tscn" id="6_5orea"]
+[ext_resource type="Script" uid="uid://dlaqletukfc8u" path="res://levels/level.gd" id="1_at1ld"]
+[ext_resource type="TileSet" uid="uid://cg38w0x1tlsnv" path="res://levels/tiles/tile_set.tres" id="2_sd18g"]
+[ext_resource type="Script" uid="uid://b7not1q2toooy" path="res://levels/level_drawing.gd" id="3_vm7no"]
+[ext_resource type="Script" uid="uid://2ihq44qxg1ij" path="res://levels/level_navigation.gd" id="4_hbb88"]
+[ext_resource type="Script" uid="uid://b4sqengt4sjdm" path="res://levels/darkness.gd" id="5_wcjpl"]
+[ext_resource type="PackedScene" uid="uid://bxs6krlw7tiwh" path="res://enemies/shooter/shooter.tscn" id="6_5orea"]
 [ext_resource type="PackedScene" path="res://enemies/chaser/chaser.tscn" id="7_0ourt"]
 [ext_resource type="PackedScene" path="res://heroes/squad.tscn" id="8_w200a"]
 [ext_resource type="PackedScene" path="res://levels/level_exit.tscn" id="9_uo0vl"]
@@ -96,11 +96,11 @@ position = Vector2(1776, 1168)
 position = Vector2(2448, 1168)
 
 [node name="Server" parent="." unique_id=945122326 instance=ExtResource("10_sd18g")]
-position = Vector2(2432, 192)
+position = Vector2(1950, 196)
 label = "Hack server"
 hold_time = 3.0
 
 [node name="Server2" parent="." unique_id=320702550 instance=ExtResource("10_sd18g")]
-position = Vector2(1808, 1104)
+position = Vector2(770, 590)
 label = "Hack server"
 hold_time = 3.0

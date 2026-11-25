@@ -10,6 +10,7 @@
 script = ExtResource("4")
 duration = 8.0
 team_wall_sight = true
+camera_zoom = 0.75
 effect_scene = ExtResource("6")
 
 [resource]
@@ -22,4 +23,5 @@ ultimate = SubResource("Resource_ultimate")
 vision_range = 170.0
 vision_angle = 360.0
 sees_through_walls = true
+camera_zoom = 1.25
 visual_scene = ExtResource("2")

@@ -17,6 +17,8 @@ extends Resource
 @export_range(10.0, 360.0) var vision_angle: float = 90.0
 ## Sees (and lights up) through walls.
 @export var sees_through_walls: bool = false
+## Camera zoom while you play this hero. Above 1 = closer, for heroes that see only nearby.
+@export var camera_zoom: float = 1.0
 @export_group("")
 ## A scene whose root uses visual.gd. Point this at your art scene to reskin the hero.
 @export var visual_scene: PackedScene
