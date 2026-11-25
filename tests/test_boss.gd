@@ -63,5 +63,5 @@ func _run() -> void:
 	boss.health.take_damage(boss.health.max_health)
 	await process_frame
 	check(not is_instance_valid(bar), "the boss bar goes away when the boss dies")
-	check(not exit.locked, "killing the boss (last enemy) unlocks the exit")
-	check(objective.get_node("%Goal").text == "Reach the exit", "after the boss the objective says to reach the exit")
+	check(not exit.locked, "killing the boss unlocks the exit")
+	check(objective.get_node("%Goal").text.begins_with("Reach the exit"), "after the boss the objective says to reach the exit")

@@ -8,6 +8,8 @@ signal wiped
 
 ## Where teammates walk to, behind the hero you control (x = forward, y = sideways).
 const FOLLOW_OFFSETS: Array[Vector2] = [Vector2(-120, -90), Vector2(-80, 60)]
+## How fast the camera eases to the active hero's zoom, in zoom units per second.
+const ZOOM_SPEED := 1.0
 
 ## Seconds after a switch before you can switch again (shared by all heroes).
 @export var switch_cooldown: float = 3.0
@@ -26,12 +28,15 @@ func _ready() -> void:
 		hero.health.died.connect(_on_hero_died.bind(hero))
 	_hud.show_squad(heroes, _cooldown)
 	_set_active(heroes[0])
+	camera.zoom = Vector2.ONE * active.camera_zoom() # no zoom animation at level start
 	camera.global_position = active.global_position
 	camera.reset_smoothing()
 
 
-func _physics_process(_delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	camera.global_position = active.global_position
+	# Eased every frame (not tweened once), so a zoom that ends mid-ultimate or a switch both just work.
+	camera.zoom = camera.zoom.move_toward(Vector2.ONE * active.camera_zoom(), ZOOM_SPEED * delta)
 
 
 func _unhandled_input(event: InputEvent) -> void:

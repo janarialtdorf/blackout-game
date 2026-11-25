@@ -11,6 +11,7 @@ func _run() -> void:
 
 	check(team.active == fighter and fighter.controlled and fighter.vision.active, "starts as hero 1 with its vision on")
 	check(not sniper.vision.active and not seer.vision.active, "teammates' vision is off")
+	check(team.camera.zoom == Vector2.ONE * 1.25, "the Fighter's camera starts zoomed in")
 
 	var fighter_spot := fighter.global_position
 	var sniper_spot := sniper.global_position
@@ -24,6 +25,7 @@ func _run() -> void:
 	await physics_frame
 	check(team.active == sniper and sniper.controlled and not fighter.controlled, "key 2 switches control to hero 2")
 	check(sniper.vision.active and not fighter.vision.active, "vision moves with control")
+	check(team.camera.zoom == Vector2.ONE, "the camera zooms out to the Sniper's zoom after a switch")
 	_press("switch_3")
 	await physics_frame
 	check(team.active == sniper, "switching again right away is blocked by the shared cooldown")
@@ -50,6 +52,22 @@ func _run() -> void:
 			break
 	await wait(60)
 	check(damage_taken(target) > 0, "AI teammates shoot enemies they have a clear line to")
+
+	# Teammates take and deal half damage; the controlled hero full.
+	check(fighter.get_node("Hurtbox").take_hit(20) == 10, "a teammate takes half damage from a hit")
+	check(seer.get_node("Hurtbox").take_hit(20) == 20, "the controlled hero takes full damage")
+	check(_fired_damage(fighter, 15) == 8 and _fired_damage(seer, 15) == 15, "a teammate's bullets do half damage (rounded)")
+	team.get_node("SwitchCooldown").stop()
+	team.try_switch(0)
+	check(_fired_damage(fighter, 15) == 15 and _fired_damage(seer, 15) == 8, "switching gives the new active hero full damage")
+
+
+func _fired_damage(hero: Hero, damage: int) -> int:
+	hero.weapon.fire_projectile(0.0, damage)
+	var projectile: Projectile = current_scene.get_child(-1)
+	var dealt := projectile.damage
+	projectile.free()
+	return dealt
 
 
 func _press(action: StringName) -> void:

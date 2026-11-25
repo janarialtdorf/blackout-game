@@ -10,6 +10,8 @@ const PROJECTILE_SCENE := preload("res://weapons/projectile.tscn")
 @export var stats: WeaponStats
 ## What stops this weapon's bullets: walls + the targets' hurtbox layer.
 @export_flags_2d_physics var hit_mask: int = 1
+## Multiplies the damage of every projectile fired (rounded), e.g. 0.5 = half damage.
+var damage_scale := 1.0
 
 @onready var _cooldown: Timer = $Cooldown
 @onready var _sound: AudioStreamPlayer2D = $Sound
@@ -38,7 +40,7 @@ func fire_projectile(angle: float, damage: int) -> void:
 	var projectile: Projectile = PROJECTILE_SCENE.instantiate()
 	projectile.speed = stats.projectile_speed
 	projectile.max_distance = stats.max_range
-	projectile.damage = damage
+	projectile.damage = roundi(damage * damage_scale)
 	projectile.hit_mask = hit_mask
 	projectile.pierces = stats.pierces
 	projectile.weapon = self

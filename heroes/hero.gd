@@ -8,6 +8,8 @@ signal dash_finished
 
 ## Teammates stop walking once they are this close to their spot behind the leader.
 const FOLLOW_SLACK := 120.0
+## AI teammates take and deal this share of damage, so the hero you play matters most.
+const TEAMMATE_DAMAGE_SCALE := 0.5
 
 @export var stats: HeroStats
 
@@ -16,12 +18,17 @@ var controlled := true:
 	set(value):
 		controlled = value
 		vision.active = value
+		var damage_scale := 1.0 if value else TEAMMATE_DAMAGE_SCALE
+		weapon.damage_scale = damage_scale
+		$Hurtbox.damage_scale = damage_scale
 var leader: Hero
 ## Where this teammate walks to, relative to the leader (rotates with the leader).
 var follow_offset := Vector2.ZERO
 var visual: Visual
 var _dash_velocity := Vector2.ZERO
 var _dash_time_left := 0.0
+var _zoom_override := 0.0
+var _zoom_override_left := 0.0
 
 @onready var weapon: WeaponComponent = $WeaponComponent
 @onready var health: HealthComponent = $HealthComponent
@@ -51,6 +58,17 @@ func switch_in() -> void:
 		stats.ultimate.activate(self)
 
 
+## Uses `zoom` instead of stats.camera_zoom for `seconds` (e.g. during an ultimate).
+func override_camera_zoom(zoom: float, seconds: float) -> void:
+	_zoom_override = zoom
+	_zoom_override_left = seconds
+
+
+## The camera zoom the Squad should use while you play this hero.
+func camera_zoom() -> float:
+	return _zoom_override if _zoom_override_left > 0.0 else stats.camera_zoom
+
+
 ## Moves the hero by `offset` over `duration` seconds, ignoring input. Ends early at a wall or
 ## body in the way. Use with `await`.
 func dash(offset: Vector2, duration: float) -> void:
@@ -60,6 +78,7 @@ func dash(offset: Vector2, duration: float) -> void:
 
 
 func _physics_process(delta: float) -> void:
+	_zoom_override_left -= delta
 	if _dash_time_left > 0.0:
 		_dash_step(delta)
 		return

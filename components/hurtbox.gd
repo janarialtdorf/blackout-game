@@ -4,8 +4,10 @@ extends Area2D
 ## owner's hurtbox physics layer (hero_hurtbox / enemy_hurtbox). Damage goes to `health`.
 
 @export var health: HealthComponent
+## Multiplies every hit (rounded), e.g. 0.5 = takes half damage.
+var damage_scale := 1.0
 
 
 ## Returns the damage actually dealt.
 func take_hit(damage: int) -> int:
-	return health.take_damage(damage)
+	return health.take_damage(roundi(damage * damage_scale))
