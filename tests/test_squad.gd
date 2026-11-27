@@ -53,13 +53,13 @@ func _run() -> void:
 	await wait(60)
 	check(damage_taken(target) > 0, "AI teammates shoot enemies they have a clear line to")
 
-	# Teammates take and deal half damage; the controlled hero full.
-	check(fighter.get_node("Hurtbox").take_hit(20) == 10, "a teammate takes half damage from a hit")
+	# Teammates take and deal 75 % damage; the controlled hero full.
+	check(fighter.get_node("Hurtbox").take_hit(20) == 15, "a teammate takes 75 % damage from a hit")
 	check(seer.get_node("Hurtbox").take_hit(20) == 20, "the controlled hero takes full damage")
-	check(_fired_damage(fighter, 15) == 8 and _fired_damage(seer, 15) == 15, "a teammate's bullets do half damage (rounded)")
+	check(_fired_damage(fighter, 15) == 11 and _fired_damage(seer, 15) == 15, "a teammate's bullets do 75 % damage (rounded)")
 	team.get_node("SwitchCooldown").stop()
 	team.try_switch(0)
-	check(_fired_damage(fighter, 15) == 15 and _fired_damage(seer, 15) == 8, "switching gives the new active hero full damage")
+	check(_fired_damage(fighter, 15) == 15 and _fired_damage(seer, 15) == 11, "switching gives the new active hero full damage")
 
 
 func _fired_damage(hero: Hero, damage: int) -> int:

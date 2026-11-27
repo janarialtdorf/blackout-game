@@ -59,9 +59,17 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 	visual.play(&"walk" if velocity != Vector2.ZERO else &"idle")
 	if sees:
-		look_at(target.global_position)
+		_turn_toward(target.global_position, delta)
 		if global_position.distance_to(target.global_position) <= stats.attack_range:
 			_attack()
+
+
+func _turn_toward(point: Vector2, delta: float) -> void:
+	if stats.turn_speed <= 0.0:
+		look_at(point)
+		return
+	var wanted := global_position.angle_to_point(point)
+	global_rotation = rotate_toward(global_rotation, wanted, deg_to_rad(stats.turn_speed) * delta)
 
 
 func _idle() -> void:
@@ -115,6 +123,7 @@ func _on_died() -> void:
 	set_physics_process(false)
 	sight_cone.hide()
 	set_deferred(&"collision_layer", 0)
-	$Hurtbox.set_deferred(&"collision_layer", 0)
+	for hurtbox in find_children("*", "Hurtbox", false): # the body's and any shield's
+		hurtbox.set_deferred(&"collision_layer", 0)
 	await visual.play_to_end(&"die")
 	queue_free()

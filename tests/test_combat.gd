@@ -1,7 +1,6 @@
 extends GameTest
 ## Weapons, bullets, health and hits.
 
-const PROJECTILE := preload("res://weapons/projectile.tscn")
 const DUMMY := preload("res://enemies/target_dummy.tscn")
 
 
@@ -32,11 +31,11 @@ func _run() -> void:
 	await wait(120) # let the shots hit the wall and go away
 
 	# --- Bullets
-	var bullet := _bullet(hero.global_position, PI, 10, INF)
+	var bullet := spawn_bullet(hero.global_position, PI, 10, INF)
 	await wait(120)
 	check(not is_instance_valid(bullet), "a bullet stops at a wall")
 
-	bullet = _bullet(Vector2(176, 280), 0.0, 10, 50.0)
+	bullet = spawn_bullet(Vector2(176, 280), 0.0, 10, 50.0)
 	await wait(10)
 	check(not is_instance_valid(bullet), "a bullet disappears at its max range")
 
@@ -44,10 +43,10 @@ func _run() -> void:
 	dummy.position = Vector2(300, 280)
 	current_scene.add_child(dummy)
 	var dummy_health: HealthComponent = dummy.get_node("HealthComponent")
-	_bullet(Vector2(176, 280), 0.0, 60, 400.0)
+	spawn_bullet(Vector2(176, 280), 0.0, 60, 400.0)
 	await wait(20)
 	check(dummy_health.current == dummy_health.max_health - 60, "a bullet deals its damage to what it hits")
-	_bullet(Vector2(176, 280), 0.0, 60, 400.0)
+	spawn_bullet(Vector2(176, 280), 0.0, 60, 400.0)
 	await wait(20)
 	check(not is_instance_valid(dummy), "a target dummy is removed at 0 HP")
 
@@ -55,7 +54,7 @@ func _run() -> void:
 	for x in [260, 320, 380]:
 		lined_up.append(spawn_target(Vector2(x, 280)))
 	await physics_frame
-	_bullet(Vector2(176, 280), 0.0, 30, 400.0, true)
+	spawn_bullet(Vector2(176, 280), 0.0, 30, 400.0, true)
 	await wait(20)
 	check(lined_up.all(func(enemy: Enemy) -> bool: return damage_taken(enemy) == 30), "a piercing bullet hits every enemy in its path exactly once")
 	for enemy in lined_up:
@@ -76,16 +75,3 @@ func _run() -> void:
 	hero.weapon.fire_projectile(0.0, 50)
 	await wait(20)
 	check(second.health.current == second.health.max_health, "hero bullets pass through other heroes")
-
-
-func _bullet(at: Vector2, angle: float, damage: int, max_distance: float, pierces := false) -> Projectile:
-	var bullet: Projectile = PROJECTILE.instantiate()
-	bullet.position = at
-	bullet.rotation = angle
-	bullet.speed = 700.0
-	bullet.max_distance = max_distance
-	bullet.damage = damage
-	bullet.hit_mask = 1 | 16 # walls + enemy_hurtbox
-	bullet.pierces = pierces
-	current_scene.add_child(bullet)
-	return bullet

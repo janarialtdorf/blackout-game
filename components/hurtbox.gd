@@ -4,8 +4,8 @@ extends Area2D
 ## owner's hurtbox physics layer (hero_hurtbox / enemy_hurtbox). Damage goes to `health`.
 
 @export var health: HealthComponent
-## Multiplies every hit (rounded), e.g. 0.5 = takes half damage.
-var damage_scale := 1.0
+## Multiplies every hit (rounded), e.g. 0.5 = takes half damage, 0 = a shield that blocks bullets.
+@export var damage_scale := 1.0
 
 
 ## Returns the damage actually dealt.

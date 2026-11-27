@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" path="res://levels/level_exit.tscn" id="9_yafm2"]
 [ext_resource type="PackedScene" path="res://heroes/squad.tscn" id="10_46211"]
 [ext_resource type="PackedScene" path="res://levels/collectible.tscn" id="11_wj73x"]
+[ext_resource type="PackedScene" path="res://enemies/juggernaut/juggernaut.tscn" id="juggernaut"]
 
 [node name="Level3" type="Node2D" unique_id=532692268]
 script = ExtResource("1_lsnkt")
@@ -111,3 +112,11 @@ position = Vector2(816, 1424)
 position = Vector2(1376, 64)
 label = "Bonus intel"
 required = false
+
+[node name="Juggernaut" parent="." instance=ExtResource("juggernaut")]
+position = Vector2(1872, 368)
+rotation = 3.1415927
+
+[node name="Juggernaut2" parent="." instance=ExtResource("juggernaut")]
+position = Vector2(1872, 560)
+rotation = 3.1415927

@@ -96,6 +96,20 @@ func spawn_enemy(at: Vector2, scene: PackedScene = CHASER) -> Enemy:
 	return enemy
 
 
+## A hero bullet (it hits walls + enemy hurtboxes) flying from `at` toward `angle`.
+func spawn_bullet(at: Vector2, angle: float, damage: int, max_distance: float, pierces := false) -> Projectile:
+	var bullet: Projectile = preload("res://weapons/projectile.tscn").instantiate()
+	bullet.position = at
+	bullet.rotation = angle
+	bullet.speed = 700.0
+	bullet.max_distance = max_distance
+	bullet.damage = damage
+	bullet.hit_mask = 1 | 16 # walls + enemy_hurtbox
+	bullet.pierces = pierces
+	current_scene.add_child(bullet)
+	return bullet
+
+
 func damage_taken(enemy: Enemy) -> int:
 	return enemy.health.max_health - enemy.health.current
 

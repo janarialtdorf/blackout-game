@@ -9,7 +9,7 @@ signal dash_finished
 ## Teammates stop walking once they are this close to their spot behind the leader.
 const FOLLOW_SLACK := 120.0
 ## AI teammates take and deal this share of damage, so the hero you play matters most.
-const TEAMMATE_DAMAGE_SCALE := 0.5
+const TEAMMATE_DAMAGE_SCALE := 0.75
 
 @export var stats: HeroStats
 
