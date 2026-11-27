@@ -12,6 +12,9 @@
 [ext_resource type="PackedScene" path="res://heroes/squad.tscn" id="10_46211"]
 [ext_resource type="PackedScene" path="res://levels/collectible.tscn" id="11_wj73x"]
 [ext_resource type="PackedScene" path="res://enemies/juggernaut/juggernaut.tscn" id="juggernaut"]
+[ext_resource type="PackedScene" path="res://levels/charge_pickup_fighter.tscn" id="charge_fighter"]
+[ext_resource type="PackedScene" path="res://levels/charge_pickup_sniper.tscn" id="charge_sniper"]
+[ext_resource type="PackedScene" path="res://levels/charge_pickup_seer.tscn" id="charge_seer"]
 
 [node name="Level3" type="Node2D" unique_id=532692268]
 script = ExtResource("1_lsnkt")
@@ -120,3 +123,12 @@ rotation = 3.1415927
 [node name="Juggernaut2" parent="." instance=ExtResource("juggernaut")]
 position = Vector2(1872, 560)
 rotation = 3.1415927
+
+[node name="FighterCharge" parent="." instance=ExtResource("charge_fighter")]
+position = Vector2(1392, 240)
+
+[node name="SniperCharge" parent="." instance=ExtResource("charge_sniper")]
+position = Vector2(1392, 272)
+
+[node name="SeerCharge" parent="." instance=ExtResource("charge_seer")]
+position = Vector2(1392, 304)

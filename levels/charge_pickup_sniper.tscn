@@ -1,0 +1,10 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://levels/charge_pickup.tscn" id="1"]
+[ext_resource type="Resource" path="res://heroes/sniper/sniper_stats.tres" id="2"]
+
+[node name="SniperCharge" instance=ExtResource("1")]
+hero = ExtResource("2")
+
+[node name="Body" parent="."]
+color = Color(0.2, 0.75, 0.3, 1)
