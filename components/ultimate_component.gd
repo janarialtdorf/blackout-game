@@ -24,6 +24,11 @@ func is_full() -> bool:
 	return charge >= 100.0
 
 
+## Fills the meter at once (e.g. a charge pickup).
+func fill() -> void:
+	_add(100.0)
+
+
 func consume() -> void:
 	charge = 0.0
 	charge_changed.emit(charge)
