@@ -28,6 +28,7 @@ var _failures := 0
 
 
 func _ready() -> void:
+	Level.intros_enabled = false # loading a level would otherwise stop on its intro
 	await _run()
 	paused = false
 	current_scene.queue_free() # stops playing sounds, which would otherwise leak at exit

@@ -45,6 +45,11 @@ func _unhandled_input(event: InputEvent) -> void:
 			try_switch(i)
 
 
+
+func set_hud_visible(on: bool) -> void:
+	_hud.visible = on
+
+
 ## Switches control to heroes[index]. Returns false if it's already active, dead, or on cooldown.
 func try_switch(index: int) -> bool:
 	var hero := heroes[index]
