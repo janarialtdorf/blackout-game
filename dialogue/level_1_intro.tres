@@ -1,0 +1,39 @@
+[gd_resource type="Resource" script_class="Dialogue" format=3 uid="uid://c5q3t2gbyu4au"]
+
+[ext_resource type="Script" uid="uid://ckdjiainslvel" path="res://dialogue/dialogue.gd" id="1"]
+[ext_resource type="Script" uid="uid://72iwcomublys" path="res://dialogue/dialogue_line.gd" id="2"]
+[ext_resource type="Resource" path="res://dialogue/hq_speaker.tres" id="3"]
+[ext_resource type="Resource" path="res://heroes/fighter/fighter_speaker.tres" id="4"]
+[ext_resource type="Resource" path="res://heroes/sniper/sniper_speaker.tres" id="5"]
+[ext_resource type="Resource" path="res://heroes/seer/seer_speaker.tres" id="6"]
+
+[sub_resource type="Resource" id="l1"]
+script = ExtResource("2")
+speaker = ExtResource("3")
+text = "Squad, the facility's power is down. You're going in blind."
+
+[sub_resource type="Resource" id="l2"]
+script = ExtResource("2")
+speaker = ExtResource("4")
+text = "Blind is fine. Anything that gets close, I'll see. Briefly."
+
+[sub_resource type="Resource" id="l3"]
+script = ExtResource("2")
+speaker = ExtResource("5")
+text = "I'll see it long before it gets close."
+right = true
+
+[sub_resource type="Resource" id="l4"]
+script = ExtResource("2")
+speaker = ExtResource("6")
+text = "And I'll keep an eye on what's behind the walls."
+right = true
+
+[sub_resource type="Resource" id="l5"]
+script = ExtResource("2")
+speaker = ExtResource("3")
+text = "Find the 3 pieces of intel, then get to the exit. Switch with 1, 2 and 3: use the right eyes for the job."
+
+[resource]
+script = ExtResource("1")
+lines = Array[ExtResource("2")]([SubResource("l1"), SubResource("l2"), SubResource("l3"), SubResource("l4"), SubResource("l5")])

@@ -6,6 +6,7 @@ extends Node
 
 func _ready() -> void:
 	var args := OS.get_cmdline_user_args().slice(1) # the first one is this script's path
+	Level.intros_enabled = false # a frame of gameplay, not the dialogue
 	get_tree().change_scene_to_file(StartMenu.FIRST_LEVEL)
 	await get_tree().process_frame
 	await get_tree().process_frame

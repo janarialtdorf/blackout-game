@@ -32,6 +32,8 @@ func _run() -> void:
 	team.active.global_position = intel_a.global_position
 	await wait(3)
 	check(intel_a.is_collected and not intel_a.visible, "the controlled hero picks up intel by touching it, and it disappears")
+	await physics_frame
+	check(not intel_a.visible, "picked-up intel stays hidden even where the hero can see")
 	check(_goal().begins_with("Collect intel (1/2)"), "the count goes up")
 
 	team.active.global_position = terminal.global_position

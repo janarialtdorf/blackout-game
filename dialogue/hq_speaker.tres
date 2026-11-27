@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="Speaker" format=3]
+
+[ext_resource type="Script" path="res://dialogue/speaker.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+display_name = "HQ"
+color = Color(0.35, 0.35, 0.35, 1)
+on_screen = false

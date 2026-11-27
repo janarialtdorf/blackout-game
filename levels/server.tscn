@@ -1,0 +1,69 @@
+[gd_scene format=3 uid="uid://dj2k7t31qrdnx"]
+
+[ext_resource type="PackedScene" path="res://levels/collectible.tscn" id="1"]
+[ext_resource type="Texture2D" uid="uid://crr8owi5rrjti" path="res://assets/server/server.png" id="2"]
+[ext_resource type="Texture2D" uid="uid://cvtlynr7oy7si" path="res://assets/server/frame0000.png" id="done0"]
+[ext_resource type="Texture2D" uid="uid://70uarn6q08mi" path="res://assets/server/frame0001.png" id="done1"]
+[ext_resource type="Texture2D" uid="uid://dsb8cw2s7dcyy" path="res://assets/server/frame0002.png" id="done2"]
+[ext_resource type="Texture2D" uid="uid://2jnmha5iqshr" path="res://assets/server/frame0003.png" id="done3"]
+[ext_resource type="Texture2D" uid="uid://ddxeyopax5kbk" path="res://assets/server/frame0004.png" id="done4"]
+[ext_resource type="Texture2D" uid="uid://crdrqvecjnof7" path="res://assets/server/frame0005.png" id="done5"]
+[ext_resource type="Texture2D" uid="uid://drbg7un544mub" path="res://assets/server/frame0006.png" id="done6"]
+[ext_resource type="Texture2D" uid="uid://w0nrnrqyq3xj" path="res://assets/server/frame0007.png" id="done7"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_server"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_done"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("done0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("done1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("done2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("done3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("done4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("done5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("done6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("done7")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 12.0
+}]
+
+[node name="Server" unique_id=1457886939 node_paths=PackedStringArray("done_effect") instance=ExtResource("1")]
+label = "Hack server"
+hold_time = 3.0
+done_effect = NodePath("DoneEffect")
+
+[node name="Sprite" parent="." index="1"]
+sprite_frames = SubResource("SpriteFrames_server")
+
+[node name="DoneEffect" type="AnimatedSprite2D" parent="." index="2" unique_id=1456927020]
+visible = false
+sprite_frames = SubResource("SpriteFrames_done")
+
+[connection signal="animation_finished" from="DoneEffect" to="DoneEffect" method="hide"]

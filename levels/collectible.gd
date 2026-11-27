@@ -12,8 +12,12 @@ signal collected
 @export var hold_time := 0.0
 ## A bonus objective: shown in the panel, but the exit does not wait for it.
 @export var required := true
+## Colour of the hold-progress ring.
 @export var color := Color(1.0, 0.8, 0.1)
-@export var radius := 10.0
+## Half the sprite size: the hold ring is drawn just outside it.
+@export var radius := 16.0
+## Optional: played once on top when a hold objective is done (not greyed out with the item).
+@export var done_effect: AnimatedSprite2D
 
 var is_collected := false
 var _progress := 0.0
@@ -32,8 +36,14 @@ func _collect() -> void:
 	is_collected = true
 	# A picked-up item disappears; a used terminal stays, greyed out.
 	if hold_time > 0.0:
-		modulate = Color(0.5, 0.5, 0.5)
+		self_modulate = Color(0.5, 0.5, 0.5)
+		$Sprite.modulate = Color(0.5, 0.5, 0.5)
+		if done_effect:
+			done_effect.show()
+			done_effect.play()
 	else:
+		# Out of the group, or the VisionComponent would show it again when seen.
+		remove_from_group(&"hidden_in_dark")
 		hide()
 	collected.emit()
 
@@ -43,11 +53,6 @@ func _is_controlled_hero(body: Node2D) -> bool:
 
 
 func _draw() -> void:
-	var diamond := PackedVector2Array([
-		Vector2(0, -radius), Vector2(radius, 0), Vector2(0, radius), Vector2(-radius, 0)])
-	draw_colored_polygon(diamond, color)
-	diamond.append(diamond[0])
-	draw_polyline(diamond, color.darkened(0.35), 3.0)
 	if hold_time > 0.0:
 		var ring := radius + 8.0
 		draw_arc(Vector2.ZERO, ring, 0.0, TAU, 32, color.darkened(0.35), 2.0)

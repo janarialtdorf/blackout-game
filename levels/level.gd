@@ -9,9 +9,15 @@ const RESULT_SCREEN := preload("res://ui/result_screen.tscn")
 const BOSS_BAR := preload("res://ui/boss_bar.tscn")
 const OBJECTIVE_PANEL := preload("res://ui/objective_panel.tscn")
 const GAME_OVER_SOUND := preload("res://assets/audio/game_over.wav")
+const DIALOGUE_BOX := preload("res://dialogue/dialogue_box.tscn")
+
+## Tests turn this off, so loading a level doesn't stop on its intro.
+static var intros_enabled := true
 
 ## The level to load when the exit is reached. Empty = this is the last level.
 @export_file("*.tscn") var next_level: String
+## Conversation played over the paused level as soon as it loads. Empty = none.
+@export var intro: Dialogue
 
 var _exits: Array[LevelExit] = []
 var _bosses_alive := 0
@@ -35,6 +41,22 @@ func _ready() -> void:
 	_objective = OBJECTIVE_PANEL.instantiate()
 	add_child(_objective)
 	_update_objective()
+	if intro and intros_enabled:
+		_play_intro()
+
+
+# The level stays visible behind the dialogue; the HUD and objective come back when it ends.
+func _play_intro() -> void:
+	$Squad.set_hud_visible(false)
+	_objective.hide()
+	get_tree().paused = true
+	var box: DialogueBox = DIALOGUE_BOX.instantiate()
+	add_child(box)
+	box.play(intro)
+	await box.finished
+	get_tree().paused = false
+	$Squad.set_hud_visible(true)
+	_objective.show()
 
 
 func _show_boss_bar(boss: Boss) -> void:

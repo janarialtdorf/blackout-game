@@ -9,7 +9,7 @@
 [ext_resource type="PackedScene" path="res://enemies/chaser/chaser.tscn" id="7_0ourt"]
 [ext_resource type="PackedScene" path="res://heroes/squad.tscn" id="8_w200a"]
 [ext_resource type="PackedScene" path="res://levels/level_exit.tscn" id="9_uo0vl"]
-[ext_resource type="PackedScene" path="res://levels/collectible.tscn" id="10_sd18g"]
+[ext_resource type="PackedScene" path="res://levels/server.tscn" id="10_sd18g"]
 
 [node name="Level2" type="Node2D" unique_id=1833612508]
 script = ExtResource("1_at1ld")
