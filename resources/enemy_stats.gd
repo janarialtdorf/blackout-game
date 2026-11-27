@@ -10,6 +10,8 @@ extends Resource
 @export var sight_range: float = 250.0
 ## How wide the enemy's view is while it hasn't noticed anyone, in degrees. 360 = sees all around.
 @export_range(1.0, 360.0) var sight_angle: float = 360.0
+## How fast the enemy turns to face its target, in degrees per second. 0 = instantly.
+@export var turn_speed: float = 0.0
 ## The enemy stops moving closer once it is this near a hero it can see.
 @export var preferred_distance: float = 24.0
 ## The enemy only fires when a hero is within this distance.

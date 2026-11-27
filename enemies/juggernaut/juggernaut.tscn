@@ -1,0 +1,22 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://enemies/enemy.tscn" id="1"]
+[ext_resource type="Resource" path="res://enemies/juggernaut/juggernaut_stats.tres" id="2"]
+[ext_resource type="Script" path="res://components/hurtbox.gd" id="3"]
+
+[node name="Juggernaut" instance=ExtResource("1")]
+stats = ExtResource("2")
+
+[node name="WeaponComponent" parent="."]
+position = Vector2(26, 0)
+
+[node name="Shield" type="Area2D" parent="." node_paths=PackedStringArray("health")]
+collision_layer = 16
+collision_mask = 0
+monitoring = false
+script = ExtResource("3")
+health = NodePath("../HealthComponent")
+damage_scale = 0.0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Shield"]
+polygon = PackedVector2Array(12, -20.8, 18.4, -15.4, 22.6, -8.2, 24, 0, 22.6, 8.2, 18.4, 15.4, 12, 20.8, 9.5, 16.5, 14.6, 12.2, 17.9, 6.5, 19, 0, 17.9, -6.5, 14.6, -12.2, 9.5, -16.5)
