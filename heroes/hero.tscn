@@ -17,6 +17,7 @@ radius = 12.0
 radius = 14.0
 
 [node name="Hero" type="CharacterBody2D" unique_id=1162712839 groups=["heroes"]]
+z_index = 1
 collision_layer = 2
 motion_mode = 1
 script = ExtResource("1")

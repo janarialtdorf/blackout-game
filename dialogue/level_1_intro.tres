@@ -1,7 +1,7 @@
-[gd_resource type="Resource" script_class="Dialogue" format=3]
+[gd_resource type="Resource" script_class="Dialogue" format=3 uid="uid://c5q3t2gbyu4au"]
 
-[ext_resource type="Script" path="res://dialogue/dialogue.gd" id="1"]
-[ext_resource type="Script" path="res://dialogue/dialogue_line.gd" id="2"]
+[ext_resource type="Script" uid="uid://ckdjiainslvel" path="res://dialogue/dialogue.gd" id="1"]
+[ext_resource type="Script" uid="uid://72iwcomublys" path="res://dialogue/dialogue_line.gd" id="2"]
 [ext_resource type="Resource" path="res://dialogue/hq_speaker.tres" id="3"]
 [ext_resource type="Resource" path="res://heroes/fighter/fighter_speaker.tres" id="4"]
 [ext_resource type="Resource" path="res://heroes/sniper/sniper_speaker.tres" id="5"]
